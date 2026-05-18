@@ -52,7 +52,7 @@ const initials = (e) => `${e?.firstName?.[0] ?? ""}${e?.lastName?.[0] ?? ""}`.to
 const avatarColor = (id = "") => AVATAR_PALETTE[id.charCodeAt(0) % AVATAR_PALETTE.length];
 const fullName = (e) => [e.firstName, e.middleName, e.lastName].filter(Boolean).join(" ");
 
-const API_BASE = "http://localhost:3000";
+const API_BASE = "https://api.erp.eyuelkassahun.com";
 
 function Avatar({ employee, size = "h-9 w-9" }) {
   const [imgError, setImgError] = useState(false);

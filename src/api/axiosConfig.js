@@ -4,7 +4,7 @@ import { mockRequest } from "./mock";
 const USE_MOCK = false;
 
 export const apiClient = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://api.erp.eyuelkassahun.com",
   // baseURL: "https://api.erp.teamworksc.com",
   timeout: 30000,
   withCredentials: true, // CRITICAL — sends HttpOnly cookies

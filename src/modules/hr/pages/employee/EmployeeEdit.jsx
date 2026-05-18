@@ -46,7 +46,7 @@ const extractArray = (res) => {
   return Array.isArray(data) ? data : [];
 };
 
-const API_BASE = "http://localhost:3000";
+const API_BASE = "https://api.erp.eyuelkassahun.com";
 
 const isImage = (mimeType) => mimeType && mimeType.startsWith('image/');
 

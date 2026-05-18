@@ -16,7 +16,7 @@ const formatFileSize = (bytes) => {
   return `${size.toFixed(1)} ${units[i]}`;
 };
 
-const baseUrl = "http://localhost:3000";
+const baseUrl = "https://api.erp.eyuelkassahun.com";
 
 // Check if file is an image
 const isImageFile = (filename) => {

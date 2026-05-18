@@ -68,7 +68,7 @@ export default function FirstTimeSetupWizard() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:3000/auth/create-username", {
+      const res = await fetch("https://api.erp.eyuelkassahun.com/auth/create-username", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -93,7 +93,7 @@ export default function FirstTimeSetupWizard() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("http://localhost:3000/auth/change-password", {
+      const res = await fetch("https://api.erp.eyuelkassahun.com/auth/change-password", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

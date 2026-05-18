@@ -107,7 +107,7 @@ const extractDocuments = (res) => {
 
 const isImage = (mimeType) => mimeType && mimeType.startsWith("image/");
 
-const API_BASE = "http://localhost:3000";
+const API_BASE = "https://api.erp.eyuelkassahun.com";
 
 // ─── Preview Modal ───────────────────────────────────────────────────────────
 

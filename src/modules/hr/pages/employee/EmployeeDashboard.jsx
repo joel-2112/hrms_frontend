@@ -107,7 +107,7 @@ function StatusPill({ status }) {
 
 function Avatar({ employee, size = "md" }) {
   const sz = size === "sm" ? "w-7 h-7 text-xs" : size === "lg" ? "w-10 h-10 text-sm" : "w-8 h-8 text-xs";
-  const API_BASE = "http://localhost:3000";
+  const API_BASE = "https://api.erp.eyuelkassahun.com";
   const imageUrl = employee?.image
     ? (employee.image.startsWith('http') ? employee.image : `${API_BASE}/uploads/${employee.image}`)
     : null;
