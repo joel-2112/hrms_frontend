@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "hr": "HR",
+    "employees": "Employees",
+    "employeeList": "Employee List",
+    "leave": "Leave",
+    "payroll": "Payroll",
+    "attendance": "Attendance",
+    "recruitment": "Recruitment",
+    "staffingPlans": "Staffing Plans",
+    "jobRequisitions": "Job Requisitions",
+    "jobOpenings": "Job Openings",
+    "applicants": "Applicants",
+    "referrals": "Referrals",
+    "interviews": "Interviews",
+    "jobOffers": "Job Offers",
+    "appointmentLetters": "Appointment Letters",
+    "performance": "Performance",
+    "roles": "Roles",
+    "roleList": "Role List",
+    "roleProfiles": "Role Profiles",
+    "userRoles": "User Roles",
+    "userPermissions": "User Permissions",
+    "rolePermissions": "Role Permissions",
+    "roleAssignments": "Role Assignments",
+    "roleTemplates": "Role Templates",
+    "organization": "Organization",
+    "companies": "Companies",
+    "branches": "Branches",
+    "departments": "Departments",
+    "designations": "Designations",
+    "employmentTypes": "Employment Types",
+    "employeeGrades": "Employee Grades",
+    "documents": "Documents",
+    "documentTypes": "Document Types",
+    "compliance": "Compliance",
+    "finance": "Finance",
+    "invoices": "Invoices",
+    "payments": "Payments",
+    "reports": "Reports",
+    "sales": "Sales",
+    "orders": "Orders",
+    "customers": "Customers",
+    "agents": "Agents",
+    "projects": "Projects",
+    "allProjects": "All Projects",
+    "myTasks": "My Tasks",
+    "milestones": "Milestones"
+  },
+  "topbar": {
+    "search": "Search employees, invoices, projects...",
+    "theme": "Toggle theme"
+  },
+  "login": {
+    "signInTitle": "Sign in to your workspace",
+    "demoAccounts": "Use one of the demo accounts below to explore.",
+    "email": "Email",
+    "password": "Password"
+  },
+  "general": {
+    "logout": "Log out"
+  }
+}
+

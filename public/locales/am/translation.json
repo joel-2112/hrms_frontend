@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "hr": "መለኪያ",
+    "employees": "ሰራተኞች",
+    "employeeList": "የሰራተኞች ዝርዝር",
+    "leave": "ለውጥ",
+    "payroll": "ረዥም",
+    "attendance": "መገኛ",
+    "recruitment": "መደምደሚያ",
+    "staffingPlans": "የሰራተኞች እቅዶች",
+    "jobRequisitions": "የሥራ ጥያቄዎች",
+    "jobOpenings": "የሥራ ዕድሎች",
+    "applicants": "አመልካቾች",
+    "referrals": "ማጣቀሻዎች",
+    "interviews": "ቃለመጠይቆች",
+    "jobOffers": "የሥራ ቅድመ-ይዞታ",
+    "appointmentLetters": "የመደብ ደብዳቤዎች",
+    "performance": "አፈጻጸም",
+    "roles": "ሚናዎች",
+    "roleList": "የሚና ዝርዝር",
+    "roleProfiles": "የሚና መገለጫዎች",
+    "userRoles": "የተጠቃሚ ሚናዎች",
+    "userPermissions": "የተጠቃሚ ፍቃዶች",
+    "rolePermissions": "የሚና ፍቃዶች",
+    "roleAssignments": "የሚና ይዞታዎች",
+    "roleTemplates": "የሚና ቴምፕሌቶች",
+    "organization": "ድርጅት",
+    "companies": "ኩባንያዎች",
+    "branches": "ቅርንጫፎች",
+    "departments": "ዲፓርትመንቶች",
+    "designations": "ሹመቶች",
+    "employmentTypes": "የቅጥር አይነቶች",
+    "employeeGrades": "የሰራተኛ ደረጃዎች",
+    "documents": "መረጃዎች",
+    "documentTypes": "የመረጃ አይነቶች",
+    "compliance": "ግዴታ",
+    "finance": "ፋይናንስ",
+    "invoices": "ደረሰኞች",
+    "payments": "መክፈለያዎች",
+    "reports": "ሪፖርቶች",
+    "sales": "ሽያጭ",
+    "orders": "ትዕዛዞች",
+    "customers": "ደንበኞች",
+    "agents": "ወኪሎች",
+    "projects": "ፕሮጀክቶች",
+    "allProjects": "ሁሉም ፕሮጀክቶች",
+    "myTasks": "ተግባራት",
+    "milestones": "ገደማዎች"
+  },
+  "topbar": {
+    "search": "ሰራተኞች፣ ደረሰኞች፣ ፕሮጀክቶች ፍለጋ...",
+    "theme": "ጽሑፍ ቀይይር"
+  },
+  "login": {
+    "signInTitle": "የአካባቢዎ ቦታ ላውስጥ",
+    "demoAccounts": "ከዚህ በታች ያሉ demo አካውንቶች ይጠቀሙ።",
+    "email": "ኢሜይል",
+    "password": "የይለፍ ቃል"
+  },
+  "general": {
+    "logout": "ውጣ"
+  }
+}
+

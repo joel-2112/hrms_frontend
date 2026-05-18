@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "hr": "Qabeenya Hoji",
+    "employees": "Hojii Hojiin",
+    "employeeList": "Tarree Hojii",
+    "leave": "Ijaarsa",
+    "payroll": "Reejummaa",
+    "attendance": "Ijaarsa",
+    "recruitment": "Reejummaa",
+    "staffingPlans": "Karoora Hojii",
+    "jobRequisitions": "Gaaffii Hojii",
+    "jobOpenings": "Dura Hojii",
+    "applicants": "Iyyattoota",
+    "referrals": "Ergoonni",
+    "interviews": "Gaaffii",
+    "jobOffers": "Kenna Hojii",
+    "appointmentLetters": "Barruu Amaanaa",
+    "performance": "Qajeelfama",
+    "roles": "Maddoota",
+    "roleList": "Tarree Maddoota",
+    "roleProfiles": "Ibsa Maddoota",
+    "userRoles": "Maddoota Fayyadamaa",
+    "userPermissions": "Hayyama Fayyadamaa",
+    "rolePermissions": "Hayyama Maddoota",
+    "roleAssignments": "Ramaddi Maddoota",
+    "roleTemplates": "Templaataa Maddoota",
+    "organization": "Organisation",
+    "companies": "Dhaabbilee",
+    "branches": "Ammoota",
+    "departments": "Kutoota",
+    "designations": "Maqaa Hojii",
+    "employmentTypes": "Gosa Hojii",
+    "employeeGrades": "Sadarkaa Hojii",
+    "documents": "Gahaammoota",
+    "documentTypes": "Gosa Gahaammoota",
+    "compliance": "Waliiqabduu",
+    "finance": "Diina",
+    "invoices": "Reejummaa",
+    "payments": "Reejummaa",
+    "reports": "Rapootota",
+    "sales": "Bitatee",
+    "orders": "Bitateeta",
+    "customers": "Qabeenya",
+    "agents": "Ajaanota",
+    "projects": "Proojeektotaa",
+    "allProjects": "Hunda Proojeektota",
+    "myTasks": "Kanneen Qajeelcha",
+    "milestones": "Milestoona"
+  },
+  "topbar": {
+    "search": "Hojii Hojiin, reejummaa, proojeektota qor...",
+    "theme": "Themii daddarba"
+  },
+  "login": {
+    "signInTitle": "Meeshaa keessan dhiiga",
+    "demoAccounts": "Demo akkaunoota keessaa tokko siifata.",
+    "email": "Iimeel",
+    "password": "Waldhabdee"
+  },
+  "general": {
+    "logout": "Ga'i"
+  }
+}
+

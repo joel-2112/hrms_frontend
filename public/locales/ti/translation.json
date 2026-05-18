@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "hr": "ሰራሕተኛት",
+    "employees": "ሰራሕተኛት",
+    "employeeList": "ዝርዝር ሰራሕተኛት",
+    "leave": "ዕባ",
+    "payroll": "ሓላፊነት",
+    "attendance": "ምግባር",
+    "recruitment": "መደምደም",
+    "staffingPlans": "ናይ ሰራሕተኛት ፕላናት",
+    "jobRequisitions": "ናይ ስራዊ ጥይቕታት",
+    "jobOpenings": "ናይ ስራዊ ምድላዎች",
+    "applicants": "ኣመልካቾት",
+    "referrals": "ኣጋባብ",
+    "interviews": "ምሕደራ",
+    "jobOffers": "ናይ ስራዊ ቅድሜ",
+    "appointmentLetters": "ናይ ዕደላ መደብ",
+    "performance": "ኣፈጻጽ",
+    "roles": "ተልኣኮታት",
+    "roleList": "ዝርዝር ተልኣኮታት",
+    "roleProfiles": "ፕሮፋይል ተልኣኮታት",
+    "userRoles": "ተልኣኮታት ተጠቃሚ",
+    "userPermissions": "ፍቓድ ተጠቃሚ",
+    "rolePermissions": "ፍቓድ ተልኣኮ",
+    "roleAssignments": "ምደባ ተልኣኮ",
+    "roleTemplates": "ቴምፕላት ተልኣኮ",
+    "organization": "ድርጅት",
+    "companies": "ኩባንያታት",
+    "branches": "ቅርንጫፍታት",
+    "departments": "ዲፓርትመንታት",
+    "designations": "መጠሪያታት",
+    "employmentTypes": "ኣይነታት ስራሕ",
+    "employeeGrades": "ደረጃታት ሰራሕተኛ",
+    "documents": "መስኮታት",
+    "documentTypes": "ኣይነታት መስኮታት",
+    "compliance": "ምትእኽኻብ",
+    "finance": "ፋይናንስ",
+    "invoices": "ፍሪት",
+    "payments": "ክፍሊት",
+    "reports": "ሪፖርት",
+    "sales": "ሽያጭ",
+    "orders": "ትዕዛዛት",
+    "customers": "ደንበናት",
+    "agents": "ኣጀንታ",
+    "projects": "ፕሮጀክት",
+    "allProjects": "ሓለወ ፕሮጀክት",
+    "myTasks": "ተግባራትኢ",
+    "milestones": "ገደብ"
+  },
+  "topbar": {
+    "search": "ሰራሕተኛት፣ ፍሪት፣ ፕሮጀክት ፍለጥ...",
+    "theme": "ጽሑፍ ቀይር"
+  },
+  "login": {
+    "signInTitle": "ናብ ቦታኻ ኣውጻኢ",
+    "demoAccounts": "ካብቲ ዝስዕብ ኣካውንት መልኣኽቲ ምንታወግዮ ይጠቀሙ።",
+    "email": "ኢሜይል",
+    "password": "የይለፍ ቃል"
+  },
+  "general": {
+    "logout": "ወጻኢ"
+  }
+}
+
