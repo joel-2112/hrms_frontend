@@ -323,17 +323,6 @@ export default function EmployeeCreate({ onCancel }) {
     return Object.keys(errs).length === 0;
   };
 
-  // const validate = () => {
-  //   const errs = {};
-  //   if (!form.firstName.trim()) errs.firstName = "Required";
-  //   if (!form.middleName.trim()) errs.middleName = "Required";
-  //   if (!form.lastName.trim()) errs.lastName = "Required";
-  //   if (!form.companyId) errs.companyId = "Required";
-  //   if (!form.dateOfJoining) errs.dateOfJoining = "Required";
-  //   setErrors(errs);
-  //   return Object.keys(errs).length === 0;
-  // };
-
   // ── Document handlers ──────────────────────────────────────────────────────
   const addDocument = () =>
     setDocuments([

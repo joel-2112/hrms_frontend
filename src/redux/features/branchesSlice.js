@@ -31,30 +31,39 @@ const branchesSlice = createSlice({
     // Success handlers
     fetchBranchesSuccess: (state, action) => {
       const payload = action.payload;
-      const branches = payload?.data?.branches || payload?.branches || [];
+      const branches =
+        payload?.data?.data ||
+        payload?.data?.branches ||
+        payload?.branches ||
+        payload?.data ||
+        (Array.isArray(payload) ? payload : []);
       state.items = Array.isArray(branches) ? branches : [];
       state.meta = payload?.meta || payload?.data?.meta || state.meta;
       state.loading = false;
       state.error = null;
     },
     createBranchSuccess: (state, action) => {
-      const branch = action.payload?.data?.branch || action.payload?.branch || action.payload;
-      state.items = [branch, ...state.items];
+      const branch = action.payload?.data || action.payload?.branch || action.payload;
+      state.items = Array.isArray(state.items) ? [branch, ...state.items] : [branch];
       state.saving = false;
       state.error = null;
     },
     updateBranchSuccess: (state, action) => {
-      const branch = action.payload?.data?.branch || action.payload?.branch || action.payload;
-      const idx = state.items.findIndex((b) => b.id === branch.id);
-      if (idx !== -1) {
-        state.items[idx] = branch;
+      const branch = action.payload?.data || action.payload?.branch || action.payload;
+      if (Array.isArray(state.items)) {
+        const idx = state.items.findIndex((b) => b?.id === branch?.id);
+        if (idx !== -1) {
+          state.items[idx] = branch;
+        }
       }
       state.saving = false;
       state.error = null;
     },
 
     deleteBranchSuccess: (state, action) => {
-      state.items = state.items.filter((b) => b.id !== action.payload);
+      if (Array.isArray(state.items)) {
+        state.items = state.items.filter((b) => b?.id !== action.payload);
+      }
       state.saving = false;
       state.error = null;
     },

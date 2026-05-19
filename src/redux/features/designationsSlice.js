@@ -31,29 +31,38 @@ const designationsSlice = createSlice({
     // Success handlers
     fetchDesignationsSuccess: (state, action) => {
       const payload = action.payload;
-      const designations = payload?.data?.designations || payload?.designations || [];
+      const designations =
+        payload?.data?.data ||
+        payload?.data?.designations ||
+        payload?.designations ||
+        payload?.data ||
+        (Array.isArray(payload) ? payload : []);
       state.items = Array.isArray(designations) ? designations : [];
       state.meta = payload?.meta || payload?.data?.meta || state.meta;
       state.loading = false;
       state.error = null;
     },
     createDesignationSuccess: (state, action) => {
-      const designation = action.payload?.data?.designation || action.payload?.designation || action.payload;
-      state.items = [designation, ...state.items];
+      const designation = action.payload?.data || action.payload?.designation || action.payload;
+      state.items = Array.isArray(state.items) ? [designation, ...state.items] : [designation];
       state.saving = false;
       state.error = null;
     },
     updateDesignationSuccess: (state, action) => {
-      const designation = action.payload?.data?.designation || action.payload?.designation || action.payload;
-      const idx = state.items.findIndex((d) => d.id === designation.id);
-      if (idx !== -1) {
-        state.items[idx] = designation;
+      const designation = action.payload?.data || action.payload?.designation || action.payload;
+      if (Array.isArray(state.items)) {
+        const idx = state.items.findIndex((d) => d?.id === designation?.id);
+        if (idx !== -1) {
+          state.items[idx] = designation;
+        }
       }
       state.saving = false;
       state.error = null;
     },
     deleteDesignationSuccess: (state, action) => {
-      state.items = state.items.filter((d) => d.id !== action.payload);
+      if (Array.isArray(state.items)) {
+        state.items = state.items.filter((d) => d?.id !== action.payload);
+      }
       state.saving = false;
       state.error = null;
     },

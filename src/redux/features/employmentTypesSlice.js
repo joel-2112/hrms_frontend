@@ -15,7 +15,12 @@ const employmentTypesSlice = createSlice({
     },
     fetchEmploymentTypesSuccess: (state, action) => {
       const payload = action.payload;
-      const types = payload?.data?.employmentTypes || payload?.employmentTypes || payload || [];
+      const types =
+        payload?.data?.data ||
+        payload?.data?.employmentTypes ||
+        payload?.employmentTypes ||
+        payload?.data ||
+        (Array.isArray(payload) ? payload : []);
       state.items = Array.isArray(types) ? types : [];
       state.loading = false;
       state.error = null;
@@ -29,8 +34,8 @@ const employmentTypesSlice = createSlice({
       state.error = null;
     },
     createEmploymentTypeSuccess: (state, action) => {
-      const type = action.payload?.employmentType || action.payload;
-      state.items = [type, ...state.items];
+      const type = action.payload?.data || action.payload?.employmentType || action.payload;
+      state.items = Array.isArray(state.items) ? [type, ...state.items] : [type];
       state.saving = false;
     },
     updateEmploymentTypeRequest: (state) => {
@@ -38,10 +43,12 @@ const employmentTypesSlice = createSlice({
       state.error = null;
     },
     updateEmploymentTypeSuccess: (state, action) => {
-      const type = action.payload?.employmentType || action.payload;
-      const idx = state.items.findIndex((t) => t.id === type.id);
-      if (idx !== -1) {
-        state.items[idx] = type;
+      const type = action.payload?.data || action.payload?.employmentType || action.payload;
+      if (Array.isArray(state.items)) {
+        const idx = state.items.findIndex((t) => t?.id === type?.id);
+        if (idx !== -1) {
+          state.items[idx] = type;
+        }
       }
       state.saving = false;
     },

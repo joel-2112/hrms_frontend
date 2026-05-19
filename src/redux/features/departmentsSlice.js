@@ -14,7 +14,14 @@ const departmentsSlice = createSlice({
       state.error = null;
     },
     fetchDepartmentsSuccess: (state, action) => {
-      state.items = action.payload.data.departments;
+      const payload = action.payload;
+      const departments =
+        payload?.data?.data ||
+        payload?.data?.departments ||
+        payload?.departments ||
+        payload?.data ||
+        (Array.isArray(payload) ? payload : []);
+      state.items = Array.isArray(departments) ? departments : [];
       state.loading = false;
     },
     departmentsFailure: (state, action) => {
@@ -26,7 +33,8 @@ const departmentsSlice = createSlice({
       state.error = null;
     },
     createDepartmentSuccess: (state, action) => {
-      state.items = [action.payload.department, ...state.items];
+      const department = action.payload?.department || action.payload?.data || action.payload;
+      state.items = Array.isArray(state.items) ? [department, ...state.items] : [department];
       state.saving = false;
     },
     updateDepartmentRequest: (state) => {
@@ -34,8 +42,11 @@ const departmentsSlice = createSlice({
       state.error = null;
     },
     updateDepartmentSuccess: (state, action) => {
-      const index = state.items.findIndex((dept) => dept.id === action.payload.department.id);
-      if (index !== -1) state.items[index] = action.payload.department;
+      const department = action.payload?.department || action.payload?.data || action.payload;
+      if (Array.isArray(state.items)) {
+        const index = state.items.findIndex((dept) => dept?.id === department?.id);
+        if (index !== -1) state.items[index] = department;
+      }
       state.saving = false;
     },
     deleteDepartmentRequest: (state) => {

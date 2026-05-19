@@ -31,29 +31,38 @@ const companiesSlice = createSlice({
     // Success handlers
     fetchCompaniesSuccess: (state, action) => {
       const payload = action.payload;
-      const companies = payload?.data?.companies || payload?.companies || payload || [];
+      const companies =
+        payload?.data?.data ||
+        payload?.data?.companies ||
+        payload?.companies ||
+        payload?.data ||
+        (Array.isArray(payload) ? payload : []);
       state.items = Array.isArray(companies) ? companies : [];
       state.meta = payload?.meta || payload?.data?.meta || state.meta;
       state.loading = false;
       state.error = null;
     },
     createCompanySuccess: (state, action) => {
-      const company = action.payload?.company || action.payload;
-      state.items = [company, ...state.items];
+      const company = action.payload?.data || action.payload?.company || action.payload;
+      state.items = Array.isArray(state.items) ? [company, ...state.items] : [company];
       state.saving = false;
       state.error = null;
     },
     updateCompanySuccess: (state, action) => {
-      const company = action.payload?.company || action.payload;
-      const idx = state.items.findIndex((c) => c.id === company.id);
-      if (idx !== -1) {
-        state.items[idx] = company;
+      const company = action.payload?.data || action.payload?.company || action.payload;
+      if (Array.isArray(state.items)) {
+        const idx = state.items.findIndex((c) => c?.id === company?.id);
+        if (idx !== -1) {
+          state.items[idx] = company;
+        }
       }
       state.saving = false;
       state.error = null;
     },
     deleteCompanySuccess: (state, action) => {
-      state.items = state.items.filter((c) => c.id !== action.payload);
+      if (Array.isArray(state.items)) {
+        state.items = state.items.filter((c) => c?.id !== action.payload);
+      }
       state.saving = false;
       state.error = null;
     },

@@ -15,7 +15,12 @@ const employeeGradesSlice = createSlice({
     },
     fetchEmployeeGradesSuccess: (state, action) => {
       const payload = action.payload;
-      const grades = payload?.data?.grades || payload?.grades || payload || [];
+      const grades =
+        payload?.data?.data ||
+        payload?.data?.grades ||
+        payload?.grades ||
+        payload?.data ||
+        (Array.isArray(payload) ? payload : []);
       state.items = Array.isArray(grades) ? grades : [];
       state.loading = false;
       state.error = null;
@@ -29,8 +34,8 @@ const employeeGradesSlice = createSlice({
       state.error = null;
     },
     createEmployeeGradeSuccess: (state, action) => {
-      const grade = action.payload?.grade || action.payload;
-      state.items = [grade, ...state.items];
+      const grade = action.payload?.data || action.payload?.grade || action.payload;
+      state.items = Array.isArray(state.items) ? [grade, ...state.items] : [grade];
       state.saving = false;
     },
     updateEmployeeGradeRequest: (state) => {
@@ -38,10 +43,12 @@ const employeeGradesSlice = createSlice({
       state.error = null;
     },
     updateEmployeeGradeSuccess: (state, action) => {
-      const grade = action.payload?.grade || action.payload;
-      const idx = state.items.findIndex((g) => g.id === grade.id);
-      if (idx !== -1) {
-        state.items[idx] = grade;
+      const grade = action.payload?.data || action.payload?.grade || action.payload;
+      if (Array.isArray(state.items)) {
+        const idx = state.items.findIndex((g) => g?.id === grade?.id);
+        if (idx !== -1) {
+          state.items[idx] = grade;
+        }
       }
       state.saving = false;
     },
