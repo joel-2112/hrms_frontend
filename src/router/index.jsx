@@ -142,7 +142,7 @@ export const router = createBrowserRouter([
             children: [
               {
                 index: true,
-                element: <Navigate to="/hr/employees/dashboard" replace />,
+                element: <Navigate to="/hr/employees/list" replace />,
               },
               {
                 path: "employees/list",

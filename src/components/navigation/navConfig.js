@@ -1,5 +1,3 @@
-// Sidebar configuration. Each top-level item is filtered by `resource`+`action`
-// (and each child the same way). If a parent has no visible children, it is hidden.
 
 export const navConfig = (t) => [
 
@@ -17,18 +15,10 @@ export const navConfig = (t) => [
         moduleName: "hr",
         label: "nav.employees",
         icon: "Users",
-        path: "/hr/employees/dashboard",
+        path: "/hr/employees/list",
         resource: "Employee",
         action: "canRead",
         children: [
-          {
-            moduleName: "hr",
-            label: "Dashboard",
-            icon: "CalendarDays",
-            path: "/hr/employees/dashboard",
-            resource: "Employee",
-            action: "canRead",
-          },
           {
             moduleName: "hr",
             label: "nav.employeeList",
