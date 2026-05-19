@@ -68,9 +68,9 @@ function InputField({
 }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-600 mb-1">
+      <label className="block text-xs font-medium text-primary/60 mb-1">
         {label}
-        {required && <span className="text-red-400 ml-0.5">*</span>}
+        {required && <span className="text-destructive ml-0.5">*</span>}
       </label>
       <input
         type={type}
@@ -79,15 +79,15 @@ function InputField({
         onChange={onChange}
         placeholder={placeholder}
         disabled={disabled}
-        className={`w-full px-3 py-2 text-sm border rounded-lg bg-white text-gray-900 outline-none transition-all focus:ring-2 focus:ring-blue-50 ${
-          disabled ? "bg-gray-50 text-gray-400 cursor-not-allowed" : ""
+        className={`w-full px-3 py-2 text-sm border rounded-lg bg-white text-primary outline-none transition-all focus:ring-2 focus:ring-secondary/20 ${
+          disabled ? "bg-gray-50 text-primary/30 cursor-not-allowed" : ""
         } ${
           error
-            ? "border-red-300 focus:border-red-400"
-            : "border-gray-200 focus:border-blue-400"
+            ? "border-destructive/50 focus:border-destructive"
+            : "border-gray-200 focus:border-secondary/50"
         }`}
       />
-      {error && <p className="text-xs text-red-500 mt-0.5">{error}</p>}
+      {error && <p className="text-xs text-destructive mt-0.5">{error}</p>}
     </div>
   );
 }
@@ -104,18 +104,18 @@ function SelectField({
 }) {
   return (
     <div>
-      <label className="block text-xs font-medium text-gray-600 mb-1">
+      <label className="block text-xs font-medium text-primary/60 mb-1">
         {label}
-        {required && <span className="text-red-400 ml-0.5">*</span>}
+        {required && <span className="text-destructive ml-0.5">*</span>}
       </label>
       <select
         name={name}
         value={value}
         onChange={onChange}
-        className={`w-full px-3 py-2 text-sm border rounded-lg bg-white text-gray-900 outline-none transition-all focus:ring-2 focus:ring-blue-50 ${
+        className={`w-full px-3 py-2 text-sm border rounded-lg bg-white text-primary outline-none transition-all focus:ring-2 focus:ring-secondary/20 ${
           error
-            ? "border-red-300 focus:border-red-400"
-            : "border-gray-200 focus:border-blue-400"
+            ? "border-destructive/50 focus:border-destructive"
+            : "border-gray-200 focus:border-secondary/50"
         }`}
       >
         <option value="">{placeholder || ` ${label.toLowerCase()}`}</option>
@@ -125,7 +125,7 @@ function SelectField({
           </option>
         ))}
       </select>
-      {error && <p className="text-xs text-red-500 mt-0.5">{error}</p>}
+      {error && <p className="text-xs text-destructive mt-0.5">{error}</p>}
     </div>
   );
 }
@@ -135,21 +135,21 @@ function SectionHeader({ title, icon, collapsed, onToggle, count }) {
     <button
       type="button"
       onClick={onToggle}
-      className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-gray-50 transition-colors border-b border-gray-100"
+      className="w-full flex items-center justify-between px-5 py-3.5 hover:bg-secondary/5 transition-colors border-b border-gray-100"
     >
       <div className="flex items-center gap-2.5">
-        <span className="text-gray-400">{icon}</span>
-        <span className="text-sm font-semibold text-gray-800">{title}</span>
+        <span className="text-primary/30">{icon}</span>
+        <span className="text-sm font-semibold text-primary">{title}</span>
         {count != null && count > 0 && (
-          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-blue-100 text-blue-700 text-xs font-bold">
+          <span className="inline-flex items-center justify-center w-5 h-5 rounded-full bg-secondary/10 text-secondary text-xs font-bold">
             {count}
           </span>
         )}
       </div>
       {collapsed ? (
-        <ChevronDown className="w-4 h-4 text-gray-400" />
+        <ChevronDown className="w-4 h-4 text-primary/30" />
       ) : (
-        <ChevronUp className="w-4 h-4 text-gray-400" />
+        <ChevronUp className="w-4 h-4 text-primary/30" />
       )}
     </button>
   );
@@ -183,7 +183,6 @@ export default function EmployeeCreate({ onCancel }) {
     portfolioUrl: "",
     githubUrl: "",
     City: "",
-
     Region: "",
     zone: "",
     Country: "",
@@ -192,13 +191,13 @@ export default function EmployeeCreate({ onCancel }) {
     bankAccountNumber: "",
     mobileMoneyNumber: "",
     paymentMethod: "Bank Transfer",
-    tinNumber: "", // Add this
+    tinNumber: "",
     nationalIdNumber: "",
-    email: "", // working email
-    personalEmail: "", // alternative personal email (already exists but needs to be separate)
-    needWorkEmail: false, // approver flag for IT assignment
-    phoneNumber: "", // personal phone number (already exists)
-    alternativePhoneNumber: "", // secondary phone number
+    email: "",
+    personalEmail: "",
+    needWorkEmail: false,
+    phoneNumber: "",
+    alternativePhoneNumber: "",
   });
 
   const [education, setEducation] = useState([]);
@@ -212,7 +211,7 @@ export default function EmployeeCreate({ onCancel }) {
   const [errors, setErrors] = useState({});
   const [saving, setSaving] = useState(false);
 
-  // ── Independent collapsible toggles ────────────────────────────────────────
+  // ── Independent collapsible toggles — only Basic Info open by default ──────
   const [showIdentity, setShowIdentity] = useState(true);
   const [showOrg, setShowOrg] = useState(true);
   const [showEmployment, setShowEmployment] = useState(true);
@@ -220,9 +219,9 @@ export default function EmployeeCreate({ onCancel }) {
   const [showAddress, setShowAddress] = useState(true);
   const [showBank, setShowBank] = useState(true);
   const [showDocuments, setShowDocuments] = useState(false);
-  const [showEducationSection, setShowEducationSection] = useState(true);
-  const [showWorkExpSection, setShowWorkExpSection] = useState(true);
-  const [showEmergencySection, setShowEmergencySection] = useState(true);
+  const [showEducationSection, setShowEducationSection] = useState(false);
+  const [showWorkExpSection, setShowWorkExpSection] = useState(false);
+  const [showEmergencySection, setShowEmergencySection] = useState(false);
 
   // ── dropdown data ─────────────────────────────────────────────────────────
   const [companies, setCompanies] = useState([]);
@@ -301,7 +300,6 @@ export default function EmployeeCreate({ onCancel }) {
     if (!form.companyId) errs.companyId = "Required";
     if (!form.dateOfJoining) errs.dateOfJoining = "Required";
 
-    // Optional: Add email validation if needed
     if (form.email && !/\S+@\S+\.\S+/.test(form.email)) {
       errs.email = "Valid email required";
     }
@@ -312,17 +310,6 @@ export default function EmployeeCreate({ onCancel }) {
     setErrors(errs);
     return Object.keys(errs).length === 0;
   };
-
-  // const validate = () => {
-  //   const errs = {};
-  //   if (!form.firstName.trim()) errs.firstName = "Required";
-  //   if (!form.middleName.trim()) errs.middleName = "Required";
-  //   if (!form.lastName.trim()) errs.lastName = "Required";
-  //   if (!form.companyId) errs.companyId = "Required";
-  //   if (!form.dateOfJoining) errs.dateOfJoining = "Required";
-  //   setErrors(errs);
-  //   return Object.keys(errs).length === 0;
-  // };
 
   // ── Document handlers ──────────────────────────────────────────────────────
   const addDocument = () =>
@@ -370,23 +357,13 @@ export default function EmployeeCreate({ onCancel }) {
     }
     setSaving(true);
     try {
-      // ═══════════════════════════════════════════════════════════════
-      //  1. CREATE EMPLOYEE
-      // ═══════════════════════════════════════════════════════════════
-      // const payload = { ...form };
-
-      // Object.keys(payload).forEach((k) => {
-      //   if (payload[k] === "" || payload[k] === null) delete payload[k];
-      // });
       const payload = { ...form };
       Object.keys(payload).forEach((k) => {
-        // Keep boolean false values, remove only empty strings/null
         if (payload[k] === "" || payload[k] === null) {
           delete payload[k];
         }
-        // Don't delete boolean values (true/false)
         if (typeof payload[k] === "boolean") {
-          return; // Keep as is
+          return;
         }
       });
 
@@ -394,11 +371,10 @@ export default function EmployeeCreate({ onCancel }) {
       const res = await apiClient.post("/employees", payload);
       console.log("📥 Full response:", res.data);
 
-      // Fix: go deeper into the nested response
       const responseData =
-        res.data?.data?.data || // 3 levels deep: { success, data: { data: { id } } }
-        res.data?.data || // 2 levels deep: { success, data: { id } }
-        res.data; // 1 level deep: { id }
+        res.data?.data?.data ||
+        res.data?.data ||
+        res.data;
 
       const employeeId = responseData?.id;
       const employeeNumber =
@@ -419,9 +395,7 @@ export default function EmployeeCreate({ onCancel }) {
         );
       }
 
-      // ═══════════════════════════════════════════════════════════════
-      //  2. UPLOAD EDUCATION RECORDS
-      // ═══════════════════════════════════════════════════════════════
+      // Upload education records
       let educationCount = 0;
       const educationErrors = [];
 
@@ -443,9 +417,7 @@ export default function EmployeeCreate({ onCancel }) {
       }
       console.log("✅ [EmployeeCreate] Education uploaded:", educationCount);
 
-      // ═══════════════════════════════════════════════════════════════
-      //  3. UPLOAD WORK EXPERIENCE
-      // ═══════════════════════════════════════════════════════════════
+      // Upload work experience
       let workCount = 0;
       const workErrors = [];
 
@@ -470,9 +442,7 @@ export default function EmployeeCreate({ onCancel }) {
       }
       console.log("✅ [EmployeeCreate] Work experience uploaded:", workCount);
 
-      // ═══════════════════════════════════════════════════════════════
-      //  4. UPLOAD EMERGENCY CONTACTS
-      // ═══════════════════════════════════════════════════════════════
+      // Upload emergency contacts
       let contactCount = 0;
       const contactErrors = [];
 
@@ -508,7 +478,7 @@ export default function EmployeeCreate({ onCancel }) {
         contactCount,
       );
 
-      // 5. UPLOAD DOCUMENT ATTACHMENTS
+      // Upload document attachments
       let uploadedDocs = 0;
       const documentErrors = [];
 
@@ -520,8 +490,6 @@ export default function EmployeeCreate({ onCancel }) {
 
         try {
           const formData = new FormData();
-
-          // ✅ TEXT FIELDS FIRST (multer's destination function needs these)
           formData.append("documentTypeId", doc.documentTypeId);
           formData.append("voucherType", "Employee");
           formData.append("voucherNo", employeeNumber);
@@ -531,8 +499,6 @@ export default function EmployeeCreate({ onCancel }) {
           if (doc.issueDate) formData.append("issueDate", doc.issueDate);
           if (doc.expiryDate) formData.append("expiryDate", doc.expiryDate);
           if (doc.notes) formData.append("notes", doc.notes);
-
-          // ✅ FILE LAST
           formData.append("file", doc.file);
 
           console.log("📄 Uploading document:", {
@@ -543,9 +509,7 @@ export default function EmployeeCreate({ onCancel }) {
             voucherNo: employeeNumber,
           });
 
-          // ✅ DO NOT set Content-Type header — let axios handle it
           const docRes = await apiClient.post("/documents", formData);
-
           console.log("✅ Document uploaded:", docRes.data);
           uploadedDocs++;
         } catch (docErr) {
@@ -559,9 +523,8 @@ export default function EmployeeCreate({ onCancel }) {
           });
         }
       }
-      // ═══════════════════════════════════════════════════════════════
-      //  6. SHOW RESULT & NAVIGATE
-      // ═══════════════════════════════════════════════════════════════
+
+      // Show result & navigate
       const totalErrors = [
         ...educationErrors,
         ...workErrors,
@@ -595,7 +558,6 @@ export default function EmployeeCreate({ onCancel }) {
         `/hr/employees/${employeeId}`,
       );
 
-      // Small delay to ensure backend has finished processing
       setTimeout(() => {
         navigate(`/hr/employees/${employeeId}`);
       }, 500);
@@ -687,9 +649,9 @@ export default function EmployeeCreate({ onCancel }) {
 
   if (!canCreate) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-gray-400">
+      <div className="flex flex-col items-center justify-center py-20 text-primary/20">
         <Shield className="w-12 h-12 opacity-20 mb-4" />
-        <p className="text-sm font-medium text-gray-500">
+        <p className="text-sm font-medium text-primary/40">
           You don't have permission to create employees.
         </p>
       </div>
@@ -705,7 +667,7 @@ export default function EmployeeCreate({ onCancel }) {
         actions={
           <button
             onClick={onCancel || (() => navigate("/hr/employees/list"))}
-            className="flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium text-gray-600 border border-gray-200 rounded-lg hover:bg-gray-50"
+            className="flex items-center gap-1.5 px-3.5 py-2 text-sm font-medium text-primary/60 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
           >
             <X className="w-4 h-4" /> Cancel
           </button>
@@ -713,7 +675,7 @@ export default function EmployeeCreate({ onCancel }) {
       />
 
       {loadingOpts ? (
-        <div className="flex items-center justify-center py-16 text-gray-400">
+        <div className="flex items-center justify-center py-16 text-primary/30">
           <RefreshCw className="w-5 h-5 animate-spin mr-2" /> Loading options...
         </div>
       ) : (
@@ -721,17 +683,17 @@ export default function EmployeeCreate({ onCancel }) {
           {/* ═══════════════════════════════════════════════════════════════════════════
               BASIC INFORMATION
           ═══════════════════════════════════════════════════════════════════════════ */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white">
+          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-secondary/5 to-white">
               <div className="flex items-center gap-2.5">
-                <div className="p-1.5 rounded-lg bg-blue-100 text-blue-600">
+                <div className="p-1.5 rounded-lg bg-secondary/10 text-secondary">
                   <Users className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-primary">
                     Basic Information
                   </h3>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-primary/40">
                     Core employee identity, organization, and contact details
                   </p>
                 </div>
@@ -835,7 +797,7 @@ export default function EmployeeCreate({ onCancel }) {
               </div>
             )}
 
-            {/* Organization Assignment - Enhanced Version */}
+            {/* Organization Assignment */}
             <SectionHeader
               title="Organization Assignment"
               icon={<Building2 className="w-4 h-4" />}
@@ -844,9 +806,8 @@ export default function EmployeeCreate({ onCancel }) {
             />
             {showOrg && (
               <div className="p-5 space-y-6 border-b border-gray-50">
-                {/* Company and Branch Assignment Section */}
-                <div className="bg-gray-50/50 rounded-lg ">
-                  <h4 className="text-xs font-semibold text-gray-700 mb-4 flex items-center gap-2">
+                <div className="bg-gray-50/50 rounded-lg p-4">
+                  <h4 className="text-xs font-semibold text-primary/70 mb-4 flex items-center gap-2">
                     <Building2 className="w-3.5 h-3.5" />
                     Location Assignment
                   </h4>
@@ -872,9 +833,9 @@ export default function EmployeeCreate({ onCancel }) {
                         }
                       }}
                       options={[
-                        { id: "head_office", name: " Head Office" },
-                        { id: "branch", name: " Branch Office" },
-                        { id: "remote", name: " Remote / Work from Home" },
+                        { id: "head_office", name: "Head Office" },
+                        { id: "branch", name: "Branch Office" },
+                        { id: "remote", name: "Remote / Work from Home" },
                       ]}
                       placeholder="Select work location type"
                     />
@@ -892,23 +853,21 @@ export default function EmployeeCreate({ onCancel }) {
                     )}
                   </div>
 
-                  {/* Status messages */}
                   {form.branchType === "head_office" && (
-                    <div className="mt-3 flex items-center gap-2 text-xs text-blue-700 bg-blue-50 p-2 rounded">
+                    <div className="mt-3 flex items-center gap-2 text-xs text-secondary bg-secondary/5 p-2 rounded">
                       <Check className="w-3.5 h-3.5" />
                       Assigned to Corporate Head Office
                     </div>
                   )}
 
                   {form.branchType === "remote" && (
-                    <div className="mt-3 flex items-center gap-2 text-xs text-green-700 bg-green-50 p-2 rounded">
+                    <div className="mt-3 flex items-center gap-2 text-xs text-secondary bg-secondary/5 p-2 rounded">
                       <Check className="w-3.5 h-3.5" />
                       Remote employee - no branch assignment needed
                     </div>
                   )}
                 </div>
 
-                {/* Organizational Hierarchy Section */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   <SelectField
                     label="Department"
@@ -960,6 +919,7 @@ export default function EmployeeCreate({ onCancel }) {
                 </div>
               </div>
             )}
+
             {/* Employment Details */}
             <SectionHeader
               title="Employment Details"
@@ -1029,7 +989,6 @@ export default function EmployeeCreate({ onCancel }) {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="work@company.com"
-                  comment="working email — typically mirrors User.email"
                 />
 
                 <InputField
@@ -1039,7 +998,6 @@ export default function EmployeeCreate({ onCancel }) {
                   value={form.personalEmail}
                   onChange={handleChange}
                   placeholder="personal@email.com"
-                  comment="alternative personal email for emergency contact"
                 />
 
                 <div className="flex items-center gap-2">
@@ -1049,22 +1007,21 @@ export default function EmployeeCreate({ onCancel }) {
                     id="needWorkEmail"
                     checked={form.needWorkEmail}
                     onChange={(e) => {
-                      console.log("Checkbox changed to:", e.target.checked); // Debug log
                       setForm((prev) => ({
                         ...prev,
                         needWorkEmail: e.target.checked,
                       }));
                     }}
-                    className="w-4 h-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500"
+                    className="w-4 h-4 text-secondary rounded border-gray-300 focus:ring-secondary/20"
                   />
                   <label
                     htmlFor="needWorkEmail"
-                    className="text-xs font-medium text-gray-600"
+                    className="text-xs font-medium text-primary/60"
                   >
                     Need Work Email Assigned by IT
                   </label>
                 </div>
-                <div className="text-xs text-gray-400 -mt-1 mb-2 col-span-2">
+                <div className="text-xs text-primary/30 -mt-1 mb-2 col-span-2">
                   Set by approver — if checked, employee needs work email
                   assigned by IT before login
                 </div>
@@ -1126,11 +1083,6 @@ export default function EmployeeCreate({ onCancel }) {
                   onChange={handleChange}
                   placeholder="e.g. Addis Ababa"
                 />
-                <div className="sm:col-span-2 lg:col-span-3 xl:col-span-4 text-xs text-gray-400 -mt-2">
-                  <MapPin className="w-3 h-3 inline-block mr-1" />
-                  Complete address helps with emergency contact and document
-                  delivery
-                </div>
               </div>
             )}
 
@@ -1144,13 +1096,6 @@ export default function EmployeeCreate({ onCancel }) {
             {showBank && (
               <div className="p-5 space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  <div className="sm:col-span-2 lg:col-span-3">
-                    <h4 className="text-xs font-semibold text-gray-700 mb-3 flex items-center gap-2">
-                      <Building2 className="w-3.5 h-3.5" />
-                      Bank Account Information
-                    </h4>
-                  </div>
-
                   <InputField
                     label="Bank Name"
                     name="bankName"
@@ -1174,42 +1119,30 @@ export default function EmployeeCreate({ onCancel }) {
                     onChange={handleChange}
                     placeholder="e.g. 0012345678"
                   />
-
-                  {/* <InputField
-                    label="Gross Salary"
-                    name="salary"
-                    type="number"
-                    step="0.01"
-                    value={form.salary}
-                    onChange={handleChange}
-                    placeholder="Monthly gross salary in ETB"
-                    required
-                    error={errors.salary}
-                  /> */}
                 </div>
 
-                <div className="text-xs text-gray-400 flex items-center gap-2 mt-2">
+                <div className="text-xs text-primary/30 flex items-center gap-2 mt-2">
                   <CreditCard className="w-3 h-3" />
-                  Current gross salary for payroll processing
+                  Bank details for payroll processing
                 </div>
               </div>
             )}
           </div>
 
           {/* ═══════════════════════════════════════════════════════════════════════════
-              DOCUMENT ATTACHMENTS (NEW)
+              DOCUMENT ATTACHMENTS
           ═══════════════════════════════════════════════════════════════════════════ */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-indigo-50 to-white">
+          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-violet-50 to-white">
               <div className="flex items-center gap-2.5">
-                <div className="p-1.5 rounded-lg bg-indigo-100 text-indigo-600">
+                <div className="p-1.5 rounded-lg bg-violet-100 text-violet-600">
                   <Upload className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-primary">
                     Document Attachments
                   </h3>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-primary/40">
                     Upload scanned copies of ID, certificates, CV, and other
                     required documents
                   </p>
@@ -1228,7 +1161,7 @@ export default function EmployeeCreate({ onCancel }) {
             {showDocuments && (
               <div className="p-5">
                 {documents.length === 0 ? (
-                  <div className="text-center py-8 text-sm text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
+                  <div className="text-center py-8 text-sm text-primary/25 border-2 border-dashed border-gray-200 rounded-lg">
                     <Upload className="w-8 h-8 mx-auto mb-2 opacity-30" />
                     No documents attached yet.
                     <br />
@@ -1247,13 +1180,12 @@ export default function EmployeeCreate({ onCancel }) {
                         <button
                           type="button"
                           onClick={() => removeDocument(idx)}
-                          className="absolute top-3 right-3 p-1 rounded hover:bg-red-50 text-gray-300 hover:text-red-400 transition-colors"
+                          className="absolute top-3 right-3 p-1 rounded hover:bg-destructive/5 text-primary/15 hover:text-destructive transition-colors"
                         >
                           <Trash2 className="w-4 h-4" />
                         </button>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                          {/* Document Type */}
                           <SelectField
                             label="Document Type"
                             value={doc.documentTypeId}
@@ -1268,18 +1200,17 @@ export default function EmployeeCreate({ onCancel }) {
                             placeholder="Select type..."
                           />
 
-                          {/* File Upload */}
                           <div>
-                            <label className="block text-xs font-medium text-gray-600 mb-1">
+                            <label className="block text-xs font-medium text-primary/60 mb-1">
                               File
                             </label>
                             {doc.file ? (
-                              <div className="flex items-center gap-2 px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
-                                <File className="w-4 h-4 text-green-600 flex-shrink-0" />
-                                <span className="text-sm text-green-700 truncate flex-1">
+                              <div className="flex items-center gap-2 px-3 py-2 bg-secondary/5 border border-secondary/20 rounded-lg">
+                                <File className="w-4 h-4 text-secondary flex-shrink-0" />
+                                <span className="text-sm text-primary truncate flex-1">
                                   {doc.file.name}
                                 </span>
-                                <span className="text-xs text-green-500">
+                                <span className="text-xs text-primary/40">
                                   {formatFileSize(doc.file.size)}
                                 </span>
                                 <button
@@ -1287,13 +1218,13 @@ export default function EmployeeCreate({ onCancel }) {
                                   onClick={() =>
                                     updateDocument(idx, "file", null)
                                   }
-                                  className="text-green-400 hover:text-green-600"
+                                  className="text-primary/25 hover:text-primary/50"
                                 >
                                   <X className="w-3.5 h-3.5" />
                                 </button>
                               </div>
                             ) : (
-                              <label className="flex items-center justify-center gap-2 px-3 py-2 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer hover:border-indigo-300 hover:bg-indigo-50/50 transition-colors text-sm text-gray-400 hover:text-indigo-600">
+                              <label className="flex items-center justify-center gap-2 px-3 py-2 border-2 border-dashed border-gray-200 rounded-lg cursor-pointer hover:border-secondary/30 hover:bg-secondary/5 transition-colors text-sm text-primary/25 hover:text-secondary">
                                 <Upload className="w-4 h-4" />
                                 Choose file
                                 <input
@@ -1305,7 +1236,6 @@ export default function EmployeeCreate({ onCancel }) {
                             )}
                           </div>
 
-                          {/* Title */}
                           <InputField
                             label="Title"
                             value={doc.title}
@@ -1315,7 +1245,6 @@ export default function EmployeeCreate({ onCancel }) {
                             placeholder="Display name (defaults to filename)"
                           />
 
-                          {/* Document Number */}
                           <InputField
                             label="Document Number"
                             value={doc.documentNumber}
@@ -1329,7 +1258,6 @@ export default function EmployeeCreate({ onCancel }) {
                             placeholder="e.g. PASS-2024-001234"
                           />
 
-                          {/* Issue Date */}
                           <InputField
                             label="Issue Date"
                             type="date"
@@ -1339,7 +1267,6 @@ export default function EmployeeCreate({ onCancel }) {
                             }
                           />
 
-                          {/* Expiry Date */}
                           <InputField
                             label="Expiry Date"
                             type="date"
@@ -1349,9 +1276,8 @@ export default function EmployeeCreate({ onCancel }) {
                             }
                           />
 
-                          {/* Notes */}
                           <div>
-                            <label className="block text-xs font-medium text-gray-600 mb-1">
+                            <label className="block text-xs font-medium text-primary/60 mb-1">
                               Notes
                             </label>
                             <textarea
@@ -1361,7 +1287,7 @@ export default function EmployeeCreate({ onCancel }) {
                               }
                               placeholder="Any additional notes..."
                               rows={2}
-                              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white text-gray-900 outline-none focus:ring-2 focus:ring-blue-50 focus:border-blue-400 resize-none"
+                              className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg bg-white text-primary outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary/50 resize-none"
                             />
                           </div>
                         </div>
@@ -1373,7 +1299,7 @@ export default function EmployeeCreate({ onCancel }) {
                 <button
                   type="button"
                   onClick={addDocument}
-                  className="flex items-center gap-1.5 text-xs font-medium text-indigo-600 hover:text-indigo-700 transition-colors"
+                  className="flex items-center gap-1.5 text-xs font-medium text-violet-600 hover:text-violet-700 transition-colors"
                 >
                   <Upload className="w-3.5 h-3.5" /> Attach document
                 </button>
@@ -1384,17 +1310,17 @@ export default function EmployeeCreate({ onCancel }) {
           {/* ═══════════════════════════════════════════════════════════════════════════
               EDUCATION
           ═══════════════════════════════════════════════════════════════════════════ */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
-            <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-violet-50 to-white">
+          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
+            <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-blue-50 to-white">
               <div className="flex items-center gap-2.5">
-                <div className="p-1.5 rounded-lg bg-violet-100 text-violet-600">
+                <div className="p-1.5 rounded-lg bg-blue-100 text-blue-600">
                   <GraduationCap className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-primary">
                     Education
                   </h3>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-primary/40">
                     Academic qualifications and professional certifications
                   </p>
                 </div>
@@ -1402,7 +1328,7 @@ export default function EmployeeCreate({ onCancel }) {
             </div>
             <div className="p-5">
               {education.length === 0 ? (
-                <div className="text-center py-6 text-sm text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
+                <div className="text-center py-6 text-sm text-primary/25 border-2 border-dashed border-gray-200 rounded-lg">
                   No education records added yet.
                 </div>
               ) : (
@@ -1415,7 +1341,7 @@ export default function EmployeeCreate({ onCancel }) {
                       <button
                         type="button"
                         onClick={() => removeEducation(idx)}
-                        className="absolute top-3 right-3 p-1 rounded hover:bg-red-50 text-gray-300 hover:text-red-400"
+                        className="absolute top-3 right-3 p-1 rounded hover:bg-destructive/5 text-primary/15 hover:text-destructive"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -1497,7 +1423,7 @@ export default function EmployeeCreate({ onCancel }) {
               <button
                 type="button"
                 onClick={addEducation}
-                className="flex items-center gap-1.5 text-xs font-medium text-violet-600 hover:text-violet-700"
+                className="flex items-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-700"
               >
                 <UserPlus className="w-3.5 h-3.5" /> Add education
               </button>
@@ -1507,17 +1433,17 @@ export default function EmployeeCreate({ onCancel }) {
           {/* ═══════════════════════════════════════════════════════════════════════════
               WORK EXPERIENCE
           ═══════════════════════════════════════════════════════════════════════════ */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-amber-50 to-white">
               <div className="flex items-center gap-2.5">
                 <div className="p-1.5 rounded-lg bg-amber-100 text-amber-600">
                   <Briefcase className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-primary">
                     Work Experience
                   </h3>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-primary/40">
                     Previous employment history from other organizations
                   </p>
                 </div>
@@ -1525,7 +1451,7 @@ export default function EmployeeCreate({ onCancel }) {
             </div>
             <div className="p-5">
               {externalWork.length === 0 ? (
-                <div className="text-center py-6 text-sm text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
+                <div className="text-center py-6 text-sm text-primary/25 border-2 border-dashed border-gray-200 rounded-lg">
                   No work experience records added yet.
                 </div>
               ) : (
@@ -1538,7 +1464,7 @@ export default function EmployeeCreate({ onCancel }) {
                       <button
                         type="button"
                         onClick={() => removeExternalWork(idx)}
-                        className="absolute top-3 right-3 p-1 rounded hover:bg-red-50 text-gray-300 hover:text-red-400"
+                        className="absolute top-3 right-3 p-1 rounded hover:bg-destructive/5 text-primary/15 hover:text-destructive"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -1645,17 +1571,17 @@ export default function EmployeeCreate({ onCancel }) {
           {/* ═══════════════════════════════════════════════════════════════════════════
               EMERGENCY CONTACTS
           ═══════════════════════════════════════════════════════════════════════════ */}
-          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden">
+          <div className="bg-white border border-gray-200 rounded-xl overflow-hidden shadow-sm">
             <div className="px-5 py-3.5 border-b border-gray-100 bg-gradient-to-r from-rose-50 to-white">
               <div className="flex items-center gap-2.5">
                 <div className="p-1.5 rounded-lg bg-rose-100 text-rose-600">
                   <Heart className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-900">
+                  <h3 className="text-sm font-semibold text-primary">
                     Emergency Contacts
                   </h3>
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-primary/40">
                     People to notify in case of emergency
                   </p>
                 </div>
@@ -1663,7 +1589,7 @@ export default function EmployeeCreate({ onCancel }) {
             </div>
             <div className="p-5">
               {emergencyContacts.length === 0 ? (
-                <div className="text-center py-6 text-sm text-gray-400 border-2 border-dashed border-gray-200 rounded-lg">
+                <div className="text-center py-6 text-sm text-primary/25 border-2 border-dashed border-gray-200 rounded-lg">
                   No emergency contacts added yet.
                 </div>
               ) : (
@@ -1676,7 +1602,7 @@ export default function EmployeeCreate({ onCancel }) {
                       <button
                         type="button"
                         onClick={() => removeEmergencyContact(idx)}
-                        className="absolute top-3 right-3 p-1 rounded hover:bg-red-50 text-gray-300 hover:text-red-400"
+                        className="absolute top-3 right-3 p-1 rounded hover:bg-destructive/5 text-primary/15 hover:text-destructive"
                       >
                         <X className="w-4 h-4" />
                       </button>
@@ -1765,14 +1691,14 @@ export default function EmployeeCreate({ onCancel }) {
             <button
               type="button"
               onClick={onCancel || (() => navigate("/hr/employees/list"))}
-              className="px-4 py-2.5 text-sm font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+              className="px-4 py-2.5 text-sm font-medium text-primary/60 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={saving}
-              className="flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
+              className="flex items-center gap-2 px-6 py-2.5 text-sm font-semibold text-white bg-primary rounded-lg hover:bg-primary/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-md shadow-primary/20"
             >
               {saving ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />

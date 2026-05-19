@@ -134,7 +134,10 @@ function NestedNav({ items, level = 0, sidebarCollapsed, t }) {
                       isActive ? "text-secondary" : "text-white/50"
                     )} />
                   )}
-                  <span className="truncate">{t(child.label)}</span>
+                  <span className={cn(
+                  
+                      isActive ? "text-secondary" : "text-white/50"
+                    )} >{t(child.label)}</span>
                 </>
               )}
             </NavLink>
