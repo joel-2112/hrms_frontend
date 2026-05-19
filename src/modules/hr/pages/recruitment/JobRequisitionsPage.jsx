@@ -217,8 +217,12 @@ export default function JobRequisitionsPage() {
     if (filters.overallStatus) params.overallStatus = filters.overallStatus;
     try {
       const res = await apiClient.get("/recruitment/job-requisitions", { params });
-      const data = res?.data?.data;
-      const metaData = res?.data?.meta || {};
+      const payload = res?.data;
+      const data =
+        payload?.data?.data ||
+        payload?.data ||
+        (Array.isArray(payload) ? payload : []);
+      const metaData = payload?.meta || payload?.data?.meta || {};
       setRequisitions(Array.isArray(data) ? data : []);
       setMeta(metaData);
     } catch {
@@ -239,11 +243,29 @@ export default function JobRequisitionsPage() {
         apiClient.get("/organizations/designations?limit=200"),
         apiClient.get("/organizations/employment-types?limit=50"),
       ]);
-      setCompanies(compRes?.data?.data?.companies || []);
-      setDepartments(deptRes?.data?.data?.departments || []);
-      setDesignations(desigRes?.data?.data?.designations || desigRes?.data?.data || []);
-      setEmploymentTypes(empTypeRes?.data?.data?.employmentTypes || empTypeRes?.data?.data || []);
-    } catch { }
+
+      const extractArray = (res) => {
+        const payload = res?.data;
+        if (!payload) return [];
+        const list =
+          payload?.data?.data ||
+          payload?.data?.companies ||
+          payload?.data?.departments ||
+          payload?.data?.designations ||
+          payload?.data?.employmentTypes ||
+          payload?.data?.items ||
+          payload?.data ||
+          (Array.isArray(payload) ? payload : []);
+        return Array.isArray(list) ? list : [];
+      };
+
+      setCompanies(extractArray(compRes));
+      setDepartments(extractArray(deptRes));
+      setDesignations(extractArray(desigRes));
+      setEmploymentTypes(extractArray(empTypeRes));
+    } catch (err) {
+      console.error("Error fetching dropdowns:", err);
+    }
   }, []);
 
   useEffect(() => { fetchDropdowns(); }, [fetchDropdowns]);

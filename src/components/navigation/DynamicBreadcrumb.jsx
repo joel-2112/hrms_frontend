@@ -44,11 +44,11 @@ export default function DynamicBreadcrumb() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
-        <BreadcrumbItem>
+        {/* <BreadcrumbItem>
           <BreadcrumbLink asChild>
             <Link to="/">Home</Link>
           </BreadcrumbLink>
-        </BreadcrumbItem>
+        </BreadcrumbItem> */}
 
         {trail.length > 0 && <BreadcrumbSeparator />}
 

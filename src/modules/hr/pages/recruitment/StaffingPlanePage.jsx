@@ -844,7 +844,11 @@ export default function StaffingPlansPage() {
     setLoading(true);
     try {
       const res = await apiClient.get("/recruitment/staffing-plans");
-      const data = res?.data?.data;
+      const payload = res?.data;
+      const data =
+        payload?.data?.data ||
+        payload?.data ||
+        (Array.isArray(payload) ? payload : []);
       setPlans(Array.isArray(data) ? data : []);
     } catch {
       toast.error("Failed to load staffing plans.");
@@ -860,15 +864,38 @@ export default function StaffingPlansPage() {
         apiClient.get("/organizations/departments?limit=200"),
         apiClient.get("/organizations/designations?limit=300"),
       ]);
-      setCompanies(c?.data?.data?.companies || []);
-      setDepartments(d?.data?.data?.departments || []);
-      const desigs = des?.data?.data?.designations || des?.data?.data || [];
+
+      const extractArray = (res) => {
+        const payload = res?.data;
+        if (!payload) return [];
+        const list =
+          payload?.data?.data ||
+          payload?.data?.companies ||
+          payload?.data?.departments ||
+          payload?.data?.designations ||
+          payload?.data?.items ||
+          payload?.data ||
+          (Array.isArray(payload) ? payload : []);
+        return Array.isArray(list) ? list : [];
+      };
+
+      const companiesList = extractArray(c);
+      const departmentsList = extractArray(d);
+      const desigs = extractArray(des);
+
+      setCompanies(companiesList);
+      setDepartments(departmentsList);
       setDesignationOptions(desigs);
+
       const map = {};
-      desigs.forEach((x) => (map[x.id] = x.name));
+      desigs.forEach((x) => {
+        if (x && x.id) {
+          map[x.id] = x.name;
+        }
+      });
       setDesignationMap(map);
-    } catch {
-      /* silent */
+    } catch (err) {
+      console.error("Error fetching staffing plane refs:", err);
     }
   }, []);
 
