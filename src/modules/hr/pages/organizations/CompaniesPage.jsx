@@ -430,7 +430,7 @@ export default function CompaniesPage() {
                 <Input
                   value={form.name}
                   onChange={(e) => handleChange("name", e.target.value)}
-                  placeholder="Teamwork IT Solution PLC"
+                  placeholder="Ethiohr PLC"
                 />
               </div>
               <div className="space-y-1.5">

@@ -208,7 +208,7 @@ export default function Sidebar() {
           </div>
           {!sidebarCollapsed && (
             <div className="flex flex-col leading-tight">
-              <span className="text-sm font-semibold  tracking-tight text-sidebar-primary-foreground">teamwork ERP</span>
+              <span className="text-sm font-semibold  tracking-tight text-sidebar-primary-foreground">Ethiohr ERP</span>
               <span className="text-[11px] text-sidebar-foreground/60">Enterprise workspace</span>
             </div>
           )}

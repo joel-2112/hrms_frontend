@@ -42,31 +42,31 @@ const employeePerms = () => ({
 });
 
 export const MOCK_USERS = {
-  "admin@teamwork.com": {
+  "admin@Ethiohr.com": {
     password: "admin",
-    user: { id: "u-1", name: "Alex Morgan", email: "admin@teamwork.com", role: "Administrator", avatar: "AM" },
+    user: { id: "u-1", name: "Alex Morgan", email: "admin@Ethiohr.com", role: "Administrator", avatar: "AM" },
     permissions: fullPerms(),
   },
-  "hr@teamwork.com": {
+  "hr@Ethiohr.com": {
     password: "hr",
-    user: { id: "u-2", name: "Priya Shah", email: "hr@teamwork.com", role: "HR Manager", avatar: "PS" },
+    user: { id: "u-2", name: "Priya Shah", email: "hr@Ethiohr.com", role: "HR Manager", avatar: "PS" },
     permissions: hrManagerPerms(),
   },
-  "employee@teamwork.com": {
+  "employee@Ethiohr.com": {
     password: "employee",
-    user: { id: "u-3", name: "Diego Ruiz", email: "employee@teamwork.com", role: "Employee", avatar: "DR" },
+    user: { id: "u-3", name: "Diego Ruiz", email: "employee@Ethiohr.com", role: "Employee", avatar: "DR" },
     permissions: employeePerms(),
   },
 };
 
 // ---- Mock domain data ----
 const employees = [
-  { id: "E001", name: "Alex Morgan", email: "alex@teamwork.com", department: "Engineering", title: "VP Engineering", status: "Active", joinDate: "2021-03-14" },
-  { id: "E002", name: "Priya Shah", email: "priya@teamwork.com", department: "People", title: "HR Manager", status: "Active", joinDate: "2020-08-02" },
-  { id: "E003", name: "Diego Ruiz", email: "diego@teamwork.com", department: "Engineering", title: "Senior Engineer", status: "Active", joinDate: "2022-01-19" },
-  { id: "E004", name: "Mei Tanaka", email: "mei@teamwork.com", department: "Design", title: "Product Designer", status: "Active", joinDate: "2023-05-30" },
-  { id: "E005", name: "Sam O'Connor", email: "sam@teamwork.com", department: "Sales", title: "Account Executive", status: "On leave", joinDate: "2022-11-08" },
-  { id: "E006", name: "Yuki Sato", email: "yuki@teamwork.com", department: "Finance", title: "Financial Analyst", status: "Active", joinDate: "2023-09-12" },
+  { id: "E001", name: "Alex Morgan", email: "alex@Ethiohr.com", department: "Engineering", title: "VP Engineering", status: "Active", joinDate: "2021-03-14" },
+  { id: "E002", name: "Priya Shah", email: "priya@Ethiohr.com", department: "People", title: "HR Manager", status: "Active", joinDate: "2020-08-02" },
+  { id: "E003", name: "Diego Ruiz", email: "diego@Ethiohr.com", department: "Engineering", title: "Senior Engineer", status: "Active", joinDate: "2022-01-19" },
+  { id: "E004", name: "Mei Tanaka", email: "mei@Ethiohr.com", department: "Design", title: "Product Designer", status: "Active", joinDate: "2023-05-30" },
+  { id: "E005", name: "Sam O'Connor", email: "sam@Ethiohr.com", department: "Sales", title: "Account Executive", status: "On leave", joinDate: "2022-11-08" },
+  { id: "E006", name: "Yuki Sato", email: "yuki@Ethiohr.com", department: "Finance", title: "Financial Analyst", status: "Active", joinDate: "2023-09-12" },
 ];
 
 const leave = [
@@ -113,9 +113,9 @@ const roles = [
 ];
 
 const organization = [
-  { id: "C-1", name: "teamwork HQ", country: "United Kingdom", employees: 84, founded: 2018 },
-  { id: "C-2", name: "teamwork North America", country: "United States", employees: 56, founded: 2020 },
-  { id: "C-3", name: "teamwork APAC", country: "Singapore", employees: 38, founded: 2022 },
+  { id: "C-1", name: "Ethiohr HQ", country: "United Kingdom", employees: 84, founded: 2018 },
+  { id: "C-2", name: "Ethiohr North America", country: "United States", employees: 56, founded: 2020 },
+  { id: "C-3", name: "Ethiohr APAC", country: "Singapore", employees: 38, founded: 2022 },
 ];
 
 const documents = [
@@ -165,21 +165,21 @@ const agents = [
 ];
 
 const projects = [
-  { id: "PRJ-001", name: "teamwork Mobile App", client: "Internal", progress: 0.62, status: "On track", due: "2026-08-30" },
+  { id: "PRJ-001", name: "Ethiohr Mobile App", client: "Internal", progress: 0.62, status: "On track", due: "2026-08-30" },
   { id: "PRJ-002", name: "Northwind Migration", client: "Northwind Inc.", progress: 0.34, status: "At risk", due: "2026-06-15" },
   { id: "PRJ-003", name: "Globex Data Warehouse", client: "Globex Corp.", progress: 0.88, status: "On track", due: "2026-05-02" },
   { id: "PRJ-004", name: "Umbrella ERP Rollout", client: "Umbrella Group", progress: 0.12, status: "Planning", due: "2026-12-01" },
 ];
 
 const tasks = [
-  { id: "T-2201", project: "teamwork Mobile App", title: "Design onboarding flow", assignee: "Mei Tanaka", priority: "High", status: "In progress" },
-  { id: "T-2202", project: "teamwork Mobile App", title: "Implement push notifications", assignee: "Diego Ruiz", priority: "Medium", status: "Todo" },
+  { id: "T-2201", project: "Ethiohr Mobile App", title: "Design onboarding flow", assignee: "Mei Tanaka", priority: "High", status: "In progress" },
+  { id: "T-2202", project: "Ethiohr Mobile App", title: "Implement push notifications", assignee: "Diego Ruiz", priority: "Medium", status: "Todo" },
   { id: "T-2203", project: "Northwind Migration", title: "Data mapping review", assignee: "Yuki Sato", priority: "High", status: "In progress" },
   { id: "T-2204", project: "Globex Data Warehouse", title: "Final QA pass", assignee: "Alex Morgan", priority: "Medium", status: "Review" },
 ];
 
 const milestones = [
-  { id: "M-1", project: "teamwork Mobile App", name: "Beta launch", date: "2026-06-15", status: "On track" },
+  { id: "M-1", project: "Ethiohr Mobile App", name: "Beta launch", date: "2026-06-15", status: "On track" },
   { id: "M-2", project: "Northwind Migration", name: "Pilot cutover", date: "2026-05-20", status: "At risk" },
   { id: "M-3", project: "Globex Data Warehouse", name: "Go-live", date: "2026-05-02", status: "Confirmed" },
 ];

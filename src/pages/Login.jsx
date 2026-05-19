@@ -97,7 +97,7 @@ export default function Login() {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/15 backdrop-blur">
             <LayoutGrid className="h-5 w-5" />
           </div>
-          <span className="text-lg font-semibold tracking-tight">Teamwork IT Solution ERP</span>
+          <span className="text-lg font-semibold tracking-tight">Ethiohr ERP</span>
         </div>
 
         <div className="relative z-10 max-w-md">
@@ -110,7 +110,7 @@ export default function Login() {
         </div>
 
         <div className="text-xs text-primary-foreground/60">
-          © 2026 Teamwork IT Solution. All rights reserved.
+          © 2026 Ethiohr. All rights reserved.
         </div>
 
         <div className="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-primary-glow/30 blur-3xl" />
@@ -126,7 +126,7 @@ export default function Login() {
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary">
                 <LayoutGrid className="h-5 w-5 text-primary-foreground" />
               </div>
-              <span className="font-semibold tracking-tight">teamwork ERP</span>
+              <span className="font-semibold tracking-tight">Ethiohr ERP</span>
             </div>
             <button
               onClick={toggleLanguage}
