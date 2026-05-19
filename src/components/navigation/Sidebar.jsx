@@ -38,7 +38,6 @@ const ICONS = {
 
 // ═══════════════════════════════════════════════════════════════
 //  ACTION → PERMISSION FIELD MAPPING
-//  Maps navConfig action names to actual permission field names
 // ═══════════════════════════════════════════════════════════════
 const ACTION_TO_FIELD = {
   canRead: 'canRead',
@@ -103,7 +102,7 @@ function NestedNav({ items, level = 0, sidebarCollapsed, t }) {
       className={cn(
         "space-y-0.5",
         level === 0 && !sidebarCollapsed && "ml-2",
-        level > 0 && !sidebarCollapsed && "ml-4 border-l border-sidebar-border/40 pl-2"
+        level > 0 && !sidebarCollapsed && "ml-4 border-l border-white/10 pl-2"
       )}
     >
       {items.map((child) => {
@@ -119,19 +118,23 @@ function NestedNav({ items, level = 0, sidebarCollapsed, t }) {
               end={child.path === "/projects"}
               className={({ isActive }) =>
                 cn(
-                  "flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm transition-base",
+                  "flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-[13px] transition-all duration-200",
+                  "backdrop-blur-sm",
                   isActive
-                    ? "bg-sidebar-accent text-sidebar-primary-foreground font-medium"
-                    : "text-sidebar-foreground/80 hover:bg-sidebar-accent/50 hover:text-sidebar-primary-foreground",
+                    ? "bg-white/15 text-white font-medium shadow-sm shadow-black/10 ring-1 ring-white/20"
+                    : "text-white/70 hover:bg-white/10 hover:text-white"
                 )
               }
             >
               {({ isActive }) => (
                 <>
                   {ChildIcon && (
-                    <ChildIcon className={cn("h-4 w-4", isActive ? "text-sidebar-primary-foreground" : "text-sidebar-foreground/50")} />
+                    <ChildIcon className={cn(
+                      "h-4 w-4 transition-colors duration-200",
+                      isActive ? "text-secondary" : "text-white/50"
+                    )} />
                   )}
-                  {t(child.label)}
+                  <span className="truncate">{t(child.label)}</span>
                 </>
               )}
             </NavLink>
@@ -183,7 +186,6 @@ export default function Sidebar() {
     });
   }, []);
 
-  // Auto-expand sidebar when switching to mobile so Sheet shows full labels
   useEffect(() => {
     if (isMobile && sidebarCollapsed) {
       dispatch(setSidebarCollapsed(false));
@@ -191,7 +193,6 @@ export default function Sidebar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
-  // Close mobile sidebar on route change
   useEffect(() => {
     if (isMobile && sidebarOpen) {
       dispatch(setSidebarOpen(false));
@@ -201,22 +202,25 @@ export default function Sidebar() {
 
   const sidebarBody = (
     <>
-      <div className="flex h-16 items-center justify-between border-b border-sidebar-border px-4 ">
-        <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-primary shadow-glow">
-            <img src="/image.png" alt="Logo" className="h-7 w-7 object-contain" />
+      {/* Header with glass morphism */}
+      <div className="flex h-16 items-center justify-between border-b border-white/10 px-4 backdrop-blur-md">
+        <div className="flex items-center gap-2.5">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-secondary to-secondary/70 shadow-lg shadow-secondary/20">
+            <svg className="h-5 w-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+            </svg>
           </div>
           {!sidebarCollapsed && (
-            <div className="flex flex-col leading-tight">
-              <span className="text-sm font-semibold  tracking-tight text-sidebar-primary-foreground">Ethiohr ERP</span>
-              <span className="text-[11px] text-sidebar-foreground/60">Enterprise workspace</span>
+            <div className="flex flex-col leading-tight overflow-hidden">
+              <span className="text-sm font-semibold tracking-tight text-white">Ethiohr ERP</span>
+              <span className="text-[11px] text-white/50">Enterprise workspace</span>
             </div>
           )}
         </div>
         {!isMobile && (
           <button
             onClick={() => dispatch(toggleSidebar())}
-            className="flex h-8 w-8 items-center justify-center rounded-md text-sidebar-foreground/60 hover:bg-sidebar-accent hover:text-sidebar-primary-foreground transition-base"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-white/50 hover:bg-white/10 hover:text-white transition-all duration-200"
             aria-label="Toggle sidebar"
           >
             {sidebarCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
@@ -224,11 +228,17 @@ export default function Sidebar() {
         )}
       </div>
 
-      <nav className="flex-1 overflow-y-auto px-2 py-4">
+      {/* Navigation with glass background */}
+      <nav className="flex-1 overflow-y-auto px-3 py-4 backdrop-blur-sm">
         {nav.length === 0 && !sidebarCollapsed && (
-          <p className="px-3 py-6 text-xs text-sidebar-foreground/50">
-            Your role has no module access. Contact your administrator.
-          </p>
+          <div className="px-3 py-8 text-center">
+            <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white/5">
+              <Shield className="h-5 w-5 text-white/30" />
+            </div>
+            <p className="text-xs text-white/40 leading-relaxed">
+              Your role has no module access.<br />Contact your administrator.
+            </p>
+          </div>
         )}
         {nav.map((group) => {
           const GroupIcon = ICONS[group.icon] || LayoutGrid;
@@ -238,7 +248,7 @@ export default function Sidebar() {
           return (
             <div
               key={group.label}
-              className={cn("mb-4", sidebarCollapsed && "relative")}
+              className={cn("mb-1", sidebarCollapsed && "relative")}
               onMouseEnter={() => sidebarCollapsed && setActiveFlyout(group.label)}
               onMouseLeave={() => sidebarCollapsed && setActiveFlyout(null)}
             >
@@ -253,34 +263,35 @@ export default function Sidebar() {
                       }
                     }}
                     className={cn(
-                      "mb-1 flex w-full items-center justify-between px-3 text-[11px] font-semibold uppercase tracking-wider text-sidebar-foreground/50 hover:text-sidebar-foreground/80 transition-base",
-                      sidebarCollapsed && "justify-center px-0",
+                      "mb-0.5 flex w-full items-center justify-between rounded-lg px-3 py-2 text-[11px] font-semibold uppercase tracking-wider transition-all duration-200",
+                      "text-white/40 hover:text-white/70 hover:bg-white/5",
+                      sidebarCollapsed && "justify-center px-0"
                     )}
                   >
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2.5">
                       <GroupIcon className="h-4 w-4" />
                       {!sidebarCollapsed && <span>{t(group.label)}</span>}
                     </span>
                     {!sidebarCollapsed && (
                       isGroupExpanded ? (
-                        <ChevronUp className="h-3.5 w-3.5" />
+                        <ChevronUp className="h-3.5 w-3.5 opacity-50" />
                       ) : (
-                        <ChevronDown className="h-3.5 w-3.5" />
+                        <ChevronDown className="h-3.5 w-3.5 opacity-50" />
                       )
                     )}
                   </button>
                 </TooltipTrigger>
                 {sidebarCollapsed && (
-                  <TooltipContent side="right" className="capitalize">
+                  <TooltipContent side="right" className="capitalize backdrop-blur-xl bg-black/90 border-white/20 text-white">
                     {t(group.label)}
                   </TooltipContent>
                 )}
               </Tooltip>
 
-              {/* Flyout for collapsed desktop mode */}
+              {/* Glass flyout for collapsed desktop mode */}
               {sidebarCollapsed && isFlyoutActive && (
-                <div className="absolute left-full top-0 z-50 ml-2 w-64 rounded-lg border border-sidebar-border bg-popover p-3 shadow-lg">
-                  <div className="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                <div className="absolute left-full top-0 z-50 ml-2 w-64 rounded-xl border border-white/20 bg-black/80 backdrop-blur-xl p-3 shadow-2xl shadow-black/50">
+                  <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-white/50">
                     {t(group.label)}
                   </div>
                   <NestedNav
@@ -304,6 +315,9 @@ export default function Sidebar() {
           );
         })}
       </nav>
+
+      {/* Bottom gradient overlay */}
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black/60 to-transparent" />
     </>
   );
 
@@ -311,14 +325,16 @@ export default function Sidebar() {
     <>
       {isMobile ? (
         <Sheet open={sidebarOpen} onOpenChange={(open) => dispatch(setSidebarOpen(open))}>
-          <SheetContent side="left" className="w-52 bg-sidebar p-0 border-r border-sidebar-border gap-0">
+          <SheetContent side="left" className="w-72 bg-gradient-to-b from-[#1a1a1a] via-[#222222] to-[#1a1a1a] backdrop-blur-xl p-0 border-r border-white/10 gap-0">
             {sidebarBody}
           </SheetContent>
         </Sheet>
       ) : (
         <aside
           className={cn(
-            "hidden md:flex flex-col bg-sidebar text-sidebar-foreground transition-base border-r border-sidebar-border",
+            "hidden md:flex flex-col relative transition-all duration-300 ease-in-out",
+            "bg-gradient-to-b from-[#1a1a1a] via-[#222222] to-[#1a1a1a] backdrop-blur-xl",
+            "text-white border-r border-white/10",
             sidebarCollapsed ? "w-16" : "w-72",
           )}
         >
