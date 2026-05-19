@@ -6,6 +6,7 @@ import { useAuth } from "../hooks/useAuth";
 // - /auth/create-username expects { email, tempPassword, username }
 // - /auth/change-password expects { email, tempPassword, newPassword }
 // If your backend uses different key names, update the body fields below.
+const baseUrl = import.meta.env.VITE_API_URL;
 
 export default function FirstTimeSetupWizard() {
   const location = useLocation();
@@ -68,11 +69,11 @@ export default function FirstTimeSetupWizard() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("https://api.erp.eyuelkassahun.com/auth/create-username", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: username.trim(), employeeId: employeeIdInput, email, tempPassword }),
+      const res = await axios.post(`${baseUrl}/auth/create-username`, {
+        username: username.trim(),
+        employeeId: employeeIdInput,
+        email,
+        tempPassword
       });
 
 
@@ -93,11 +94,10 @@ export default function FirstTimeSetupWizard() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("https://api.erp.eyuelkassahun.com/auth/change-password", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, tempPassword, newPassword }),
+      const res = await axios.post(`${baseUrl}/auth/change-password`, {
+        email,
+        tempPassword,
+        newPassword
       });
 
       const data = await res.json().catch(() => ({}));

@@ -107,7 +107,7 @@ const extractDocuments = (res) => {
 
 const isImage = (mimeType) => mimeType && mimeType.startsWith("image/");
 
-const API_BASE = "https://api.erp.eyuelkassahun.com";
+const API_BASE = import.meta.env.VITE_API_URL;
 
 // ─── Preview Modal ───────────────────────────────────────────────────────────
 

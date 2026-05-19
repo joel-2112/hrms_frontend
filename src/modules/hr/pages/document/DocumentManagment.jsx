@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { useApi } from "@/hooks/useApi";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 // Helper function to format file size
 const formatFileSize = (bytes) => {
@@ -15,8 +16,6 @@ const formatFileSize = (bytes) => {
   }
   return `${size.toFixed(1)} ${units[i]}`;
 };
-
-const baseUrl = "https://api.erp.eyuelkassahun.com";
 
 // Check if file is an image
 const isImageFile = (filename) => {

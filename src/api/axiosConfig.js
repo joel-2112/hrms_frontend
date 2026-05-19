@@ -1,14 +1,13 @@
 import axios from "axios";
 import { mockRequest } from "./mock";
-
+const baseUrl = import.meta.env.VITE_API_URL;
 const USE_MOCK = false;
 
 export const apiClient = axios.create({
-  baseURL: "https://api.erp.eyuelkassahun.com",
+  baseURL: baseUrl,
   // baseURL: "https://api.erp.teamworksc.com",
   timeout: 30000,
-  withCredentials: true, // CRITICAL — sends HttpOnly cookies
-  // REMOVED: headers: { "Content-Type": "application/json" },  ← DELETE THIS LINE
+  withCredentials: true, 
 });
 
 // Request interceptor — set Content-Type only for non-FormData requests

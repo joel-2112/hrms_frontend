@@ -8,6 +8,7 @@ import {
   UserPlus, RefreshCw, ArrowRight, Building2, Briefcase,
   AlertCircle, CheckCircle2, Timer, Calendar,
 } from "lucide-react";
+const baseUrl = import.meta.env.VITE_API_URL;
 
 // ─── helpers ──────────────────────────────────────────────────────────────────
 
@@ -107,7 +108,7 @@ function StatusPill({ status }) {
 
 function Avatar({ employee, size = "md" }) {
   const sz = size === "sm" ? "w-7 h-7 text-xs" : size === "lg" ? "w-10 h-10 text-sm" : "w-8 h-8 text-xs";
-  const API_BASE = "https://api.erp.eyuelkassahun.com";
+  const API_BASE = baseUrl;
   const imageUrl = employee?.image
     ? (employee.image.startsWith('http') ? employee.image : `${API_BASE}/uploads/${employee.image}`)
     : null;
