@@ -52,28 +52,32 @@ const isImage = (mimeType) => mimeType && mimeType.startsWith('image/');
 
 // ─── Edit Section Header ─────────────────────────────────────────────────────
 
-function EditSectionHeader({ title, icon: Icon, accent = "#2e75b6", collapsed, onToggle, editing, onEditToggle, saving }) {
+function EditSectionHeader({ title, icon: Icon, accent = "#222222", collapsed, onToggle, editing, onEditToggle, saving }) {
   return (
-    <div className="flex items-center justify-between px-5 py-3.5 border-b border-slate-100">
-      <button onClick={onToggle} className="flex items-center gap-3 flex-1 text-left hover:opacity-80">
-        <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: `${accent}18` }}>
-          <Icon className="w-4 h-4" style={{ color: accent }} />
+    <div className={`w-full flex items-center justify-between px-5 py-4 border-b border-neutral-100 text-left transition-all duration-200 ${
+      !collapsed ? "border-l-4 border-l-[#222222] pl-4 bg-neutral-50/30" : "pl-5"
+    }`}>
+      <button onClick={onToggle} className="flex items-center gap-3 flex-1 text-left hover:opacity-90">
+        <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#222222] text-[#89E900] shadow-sm">
+          <Icon className="w-4 h-4" />
         </span>
-        <h3 className="text-sm font-bold text-slate-700 tracking-tight">{title}</h3>
+        <h3 className={`text-xs font-bold uppercase tracking-wider transition-colors duration-200 ${
+          !collapsed ? "text-neutral-900 font-extrabold" : "text-neutral-600"
+        }`}>{title}</h3>
       </button>
       <div className="flex items-center gap-2">
         {!editing ? (
-          <button onClick={onEditToggle} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-            <Edit3 className="w-3.5 h-3.5" /> Edit
+          <button onClick={onEditToggle} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-neutral-600 bg-white border border-neutral-200 rounded-lg hover:bg-neutral-50 hover:text-neutral-900 transition-colors shadow-sm">
+            <Edit3 className="w-3 h-3 text-[#222222]" /> Edit
           </button>
         ) : (
-          <button onClick={onEditToggle} disabled={saving} className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 disabled:opacity-50 transition-colors">
-            {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />}
+          <button onClick={onEditToggle} disabled={saving} className="flex items-center gap-1.5 px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-white bg-[#222222] hover:bg-neutral-800 disabled:opacity-50 transition-colors border border-neutral-800 focus:ring-2 focus:ring-[#89E900]/40 shadow-sm">
+            {saving ? <Loader2 className="w-3 h-3 animate-spin" /> : <Save className="w-3 h-3 text-[#89E900]" />}
             {saving ? "Saving…" : "Save"}
           </button>
         )}
-        <span className={`transition-transform ${collapsed ? "" : "rotate-180"}`}>
-          <ChevronDown className="w-4 h-4 text-slate-400" />
+        <span className={`transition-transform duration-200 ${collapsed ? "" : "rotate-180"}`}>
+          <ChevronDown className="w-4 h-4 text-neutral-400" />
         </span>
       </div>
     </div>
@@ -84,20 +88,28 @@ function EditSectionHeader({ title, icon: Icon, accent = "#2e75b6", collapsed, o
 
 function InputField({ label, name, value, onChange, type = "text", placeholder, disabled }) {
   return (
-    <div>
-      <label className="block text-xs font-medium text-slate-600 mb-1">{label}</label>
+    <div className="flex flex-col">
+      <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">{label}</label>
       <input type={type} name={name} value={value ?? ""} onChange={onChange} placeholder={placeholder} disabled={disabled}
-        className={`w-full px-3 py-2 text-sm border rounded-lg bg-white outline-none transition-all focus:ring-2 focus:ring-blue-50 ${disabled ? "bg-slate-50 text-slate-500 border-slate-200 cursor-not-allowed" : "text-slate-900 border-slate-200 focus:border-blue-400"}`} />
+        className={`w-full px-3.5 py-2 text-sm border rounded-lg bg-white outline-none transition-all duration-200 ${
+          disabled 
+            ? "bg-neutral-50 text-neutral-400 border-neutral-100 cursor-not-allowed" 
+            : "text-neutral-900 border-neutral-200 hover:border-neutral-300 focus:border-[#222222] focus:ring-2 focus:ring-[#89E900]/30"
+        }`} />
     </div>
   );
 }
 
 function SelectField({ label, name, value, onChange, options, placeholder, disabled }) {
   return (
-    <div>
-      <label className="block text-xs font-medium text-slate-600 mb-1">{label}</label>
+    <div className="flex flex-col">
+      <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5">{label}</label>
       <select name={name} value={value ?? ""} onChange={onChange} disabled={disabled}
-        className={`w-full px-3 py-2 text-sm border rounded-lg bg-white outline-none transition-all focus:ring-2 focus:ring-blue-50 ${disabled ? "bg-slate-50 text-slate-500 border-slate-200 cursor-not-allowed" : "text-slate-900 border-slate-200 focus:border-blue-400"}`}>
+        className={`w-full px-3.5 py-2 text-sm border rounded-lg bg-white outline-none transition-all duration-200 ${
+          disabled 
+            ? "bg-neutral-50 text-neutral-400 border-neutral-100 cursor-not-allowed" 
+            : "text-neutral-900 border-neutral-200 hover:border-neutral-300 focus:border-[#222222] focus:ring-2 focus:ring-[#89E900]/30"
+        }`}>
         <option value="">{placeholder || "Select"}</option>
         {options.map((opt) => (<option key={opt.id} value={opt.id}>{opt.name || opt.label}</option>))}
       </select>
@@ -107,10 +119,17 @@ function SelectField({ label, name, value, onChange, options, placeholder, disab
 
 function DisplayField({ label, value, mono = false, link = null }) {
   return (
-    <div>
-      <dt className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">{label}</dt>
-      <dd className={`text-sm font-medium text-slate-800 leading-snug break-words ${mono ? "font-mono text-xs bg-slate-50 border border-slate-200 rounded-md px-2 py-1 inline-block" : ""}`}>
-        {link ? <a href={link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-blue-600 hover:text-blue-800 hover:underline">{value}<ExternalLink className="w-3 h-3 opacity-60" /></a> : fmt(value)}
+    <div className="flex flex-col">
+      <dt className="text-[9px] font-bold uppercase tracking-wider text-neutral-400 mb-1">{label}</dt>
+      <dd className={`text-sm font-semibold text-neutral-800 leading-snug break-words ${
+        mono ? "font-mono text-xs bg-neutral-50 border border-neutral-200 rounded-md px-2 py-1 inline-block text-neutral-700" : ""
+      }`}>
+        {link ? (
+          <a href={link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-neutral-850 hover:text-black border-b border-transparent hover:border-[#89E900] transition-all">
+            {value}
+            <ExternalLink className="w-3 h-3 opacity-60 text-neutral-500" />
+          </a>
+        ) : fmt(value)}
       </dd>
     </div>
   );
@@ -204,13 +223,13 @@ export default function EmployeeEdit() {
       setEducation(emp.educationHistory || []);
       setExternalWork(emp.externalWorkHistory || []);
       setEmergencyContacts(emp.emergencyContacts || []);
-      setCompanies(compRes?.data?.data?.companies || []);
-      setBranches(branchRes?.data?.data?.branches || []);
-      setDepartments(deptRes?.data?.data?.departments || []);
-      setDesignations(desigRes?.data?.data?.designations || []);
-      setEmploymentTypes(empTypeRes?.data?.data?.employmentTypes || []);
-      setEmployeeGrades(gradeRes?.data?.data?.employeeGrades || []);
-      setManagers(managerRes?.data?.data?.data || managerRes?.data?.data || []);
+      setCompanies(extractArray(compRes));
+      setBranches(extractArray(branchRes));
+      setDepartments(extractArray(deptRes));
+      setDesignations(extractArray(desigRes));
+      setEmploymentTypes(extractArray(empTypeRes));
+      setEmployeeGrades(extractArray(gradeRes));
+      setManagers(extractArray(managerRes));
       setDocumentTypes(extractArray(docTypeRes));
 
       // ✅ Fetch documents using employeeNumber
@@ -358,21 +377,22 @@ export default function EmployeeEdit() {
   return (
     <div className="flex flex-col gap-5 pb-12">
       <div className="flex items-center gap-2">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 text-sm text-slate-500 hover:text-slate-800 font-medium">
-          <ArrowLeft className="w-4 h-4" /> Back
+        <button onClick={() => navigate(-1)} className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-neutral-500 hover:text-neutral-900 transition-colors bg-white border border-neutral-250 hover:bg-neutral-50 px-2.5 py-1.5 rounded-lg shadow-sm">
+          <ArrowLeft className="w-3.5 h-3.5 text-[#222222]" /> Back
         </button>
-        <span className="text-sm text-slate-800 font-semibold">Edit: {name}</span>
+        <span className="text-xs text-neutral-500 font-bold uppercase tracking-wider">/ Profile Editor</span>
       </div>
 
-      <div className="rounded-2xl overflow-hidden border border-slate-200 bg-white">
+      <div className="rounded-2xl overflow-hidden border border-neutral-800 bg-[#222222] text-white shadow-md">
         <div className="p-6 flex items-center gap-5">
-          <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-3xl font-black text-white shadow-lg flex-shrink-0"
-            style={{ background: `linear-gradient(135deg, ${g1}, ${g2})` }}>
+          <div className="w-20 h-20 rounded-2xl flex items-center justify-center text-3xl font-black text-[#222222] bg-[#89E900] flex-shrink-0 shadow-sm border border-white/10 select-none">
             {initials(employee)}
           </div>
           <div>
-            <h1 className="text-2xl font-black text-slate-900">{name}</h1>
-            <p className="text-sm text-slate-500 mt-1">{employee.designation?.name} · {employee.employeeNumber}</p>
+            <h1 className="text-2xl font-extrabold text-white tracking-tight leading-none">{name}</h1>
+            <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mt-2 bg-neutral-800/60 px-2.5 py-1 rounded-md border border-neutral-700/30 inline-block">
+              {employee.designation?.name || "No Designation"} · {employee.employeeNumber}
+            </p>
           </div>
         </div>
       </div>
@@ -517,22 +537,28 @@ export default function EmployeeEdit() {
         {/* ═══════════════════════════════════════════════════════════════════════
             DOCUMENT ATTACHMENTS
         ═══════════════════════════════════════════════════════════════════════ */}
-        <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
+        <div className={`w-full flex items-center justify-between px-5 py-4 border-b border-neutral-100 text-left transition-all duration-200 ${
+          !showDocuments ? "pl-5" : "border-l-4 border-l-[#222222] pl-4 bg-neutral-50/30"
+        }`}>
           <div className="flex items-center gap-3">
-            <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "#6366f118" }}>
-              <FileText className="w-4 h-4" style={{ color: "#6366f1" }} />
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#222222] text-[#89E900] shadow-sm">
+              <FileText className="w-4 h-4" />
             </span>
-            <h3 className="text-sm font-bold text-slate-700">Document Attachments</h3>
-            <span className="text-xs text-slate-400">({documents.length})</span>
+            <h3 className={`text-xs font-bold uppercase tracking-wider transition-colors duration-200 ${
+              !showDocuments ? "text-neutral-600" : "text-neutral-900 font-extrabold"
+            }`}>Document Attachments</h3>
+            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-[#89E900]/15 text-[#222222] border border-[#89E900]/30 text-[10px] font-bold">
+              {documents.length}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             {docPerms.canCreate && (
-              <button type="button" onClick={startNewDocument} className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors">
-                <Upload className="w-3.5 h-3.5" /> Upload
+              <button type="button" onClick={startNewDocument} className="flex items-center gap-1.5 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-[#222222] bg-[#89E900]/10 hover:bg-[#89E900]/20 rounded-lg transition-colors border border-[#89E900]/30 shadow-sm">
+                <Upload className="w-3 h-3 text-[#222222]" /> Upload
               </button>
             )}
             <button type="button" onClick={() => setShowDocuments(v => !v)}>
-              <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showDocuments ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${showDocuments ? "rotate-180" : ""}`} />
             </button>
           </div>
         </div>
@@ -541,22 +567,22 @@ export default function EmployeeEdit() {
           <div className="p-5 border-b border-slate-50">
             {/* New document upload form */}
             {newDocument && (
-              <div className="mb-4 p-4 border-2 border-dashed border-indigo-200 rounded-lg bg-indigo-50/30">
+              <div className="mb-4 p-4 border-2 border-dashed border-neutral-250 rounded-lg bg-neutral-50/40 shadow-sm">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   <SelectField label="Document Type" value={newDocument.documentTypeId}
                     onChange={(e) => setNewDocument(p => ({ ...p, documentTypeId: e.target.value }))}
                     options={documentTypes} placeholder="Select type..." />
                   <div>
-                    <label className="block text-xs font-medium text-slate-600 mb-1">File</label>
+                    <label className="text-[10px] font-bold uppercase tracking-wider text-neutral-500 mb-1.5 flex items-center gap-0.5">File</label>
                     {newDocument.file ? (
-                      <div className="flex items-center gap-2 px-3 py-2 bg-green-50 border border-green-200 rounded-lg">
-                        <File className="w-4 h-4 text-green-600 flex-shrink-0" />
-                        <span className="text-sm text-green-700 truncate flex-1">{newDocument.file.name}</span>
-                        <span className="text-xs text-green-500">{formatFileSize(newDocument.file.size / 1024)}</span>
-                        <button type="button" onClick={() => setNewDocument(p => ({ ...p, file: null }))} className="text-green-400 hover:text-green-600"><X className="w-3.5 h-3.5" /></button>
+                      <div className="flex items-center gap-2 px-3 py-2 bg-neutral-50 border border-neutral-200 rounded-lg">
+                        <File className="w-4 h-4 text-neutral-600 flex-shrink-0" />
+                        <span className="text-sm text-neutral-700 truncate flex-1">{newDocument.file.name}</span>
+                        <span className="text-xs text-neutral-500">{formatFileSize(newDocument.file.size / 1024)}</span>
+                        <button type="button" onClick={() => setNewDocument(p => ({ ...p, file: null }))} className="text-neutral-450 hover:text-neutral-700"><X className="w-3.5 h-3.5" /></button>
                       </div>
                     ) : (
-                      <label className="flex items-center justify-center gap-2 px-3 py-2 border-2 border-dashed border-slate-200 rounded-lg cursor-pointer hover:border-indigo-300 hover:bg-indigo-50/50 transition-colors text-sm text-slate-400 hover:text-indigo-600">
+                      <label className="flex items-center justify-center gap-2 px-3 py-2 border-2 border-dashed border-neutral-200 rounded-lg cursor-pointer hover:border-neutral-400 hover:bg-neutral-50 transition-all duration-200 text-sm text-neutral-450 hover:text-neutral-900 font-medium">
                         <Upload className="w-4 h-4" /> Choose file
                         <input type="file" className="hidden" onChange={(e) => setNewDocument(p => ({ ...p, file: e.target.files[0], title: p.title || e.target.files[0]?.name?.replace(/\.[^/.]+$/, "") || "" }))} />
                       </label>
@@ -567,13 +593,13 @@ export default function EmployeeEdit() {
                   <InputField label="Issue Date" type="date" value={newDocument.issueDate} onChange={(e) => setNewDocument(p => ({ ...p, issueDate: e.target.value }))} />
                   <InputField label="Expiry Date" type="date" value={newDocument.expiryDate} onChange={(e) => setNewDocument(p => ({ ...p, expiryDate: e.target.value }))} />
                 </div>
-                <div className="flex items-center gap-2 mt-3 pt-3 border-t border-indigo-100">
+                <div className="flex items-center gap-2 mt-3 pt-3 border-t border-neutral-100">
                   <button type="button" onClick={handleUploadDocument}
-                    className="px-4 py-2 text-xs font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-colors">
+                    className="px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white bg-[#222222] hover:bg-neutral-800 rounded-lg transition-all duration-200 border border-neutral-800 focus:ring-2 focus:ring-[#89E900]/30 shadow-sm">
                     Upload Document
                   </button>
                   <button type="button" onClick={() => setNewDocument(null)}
-                    className="px-4 py-2 text-xs font-medium text-slate-600 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
+                    className="px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-neutral-600 bg-white border border-neutral-200 rounded-lg hover:bg-neutral-50 transition-colors">
                     Cancel
                   </button>
                 </div>
@@ -584,20 +610,20 @@ export default function EmployeeEdit() {
             {documents.length > 0 ? (
               <div className="space-y-2">
                 {documents.map((doc) => (
-                  <div key={doc.id} className="flex items-center justify-between p-3 border border-slate-200 rounded-lg hover:bg-slate-50 transition-colors">
+                  <div key={doc.id} className="flex items-center justify-between p-3 border border-neutral-200 rounded-lg hover:bg-neutral-50/50 hover:border-neutral-350 transition-all duration-200">
                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <a
-                        href={`${API_BASE}/documents/${doc.id}/file`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-9 h-9 rounded-lg bg-indigo-50 flex items-center justify-center flex-shrink-0 hover:bg-indigo-100 transition-colors"
-                      >
-                        {isImage(doc.mimeType) ? (
-                          <img src={`${API_BASE}/documents/${doc.id}/file`} alt={doc.title} className="w-full h-full object-cover rounded-lg" />
-                        ) : (
-                          <File className="w-4 h-4 text-indigo-500" />
-                        )}
-                      </a>
+                       <a
+                         href={`${API_BASE}/documents/${doc.id}/file`}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="w-9 h-9 rounded-lg bg-neutral-100 flex items-center justify-center flex-shrink-0 hover:bg-[#89E900]/20 transition-all duration-200 border border-neutral-200"
+                       >
+                         {isImage(doc.mimeType) ? (
+                           <img src={`${API_BASE}/documents/${doc.id}/file`} alt={doc.title} className="w-full h-full object-cover rounded-lg" />
+                         ) : (
+                           <File className="w-4 h-4 text-neutral-500" />
+                         )}
+                       </a>
                       <div className="min-w-0">
                         <p className="text-sm font-medium text-slate-800 truncate">{doc.title || doc.fileName || "Untitled"}</p>
                         <p className="text-xs text-slate-400">
@@ -609,16 +635,16 @@ export default function EmployeeEdit() {
                     </div>
                     <div className="flex items-center gap-1 flex-shrink-0">
                       <a href={`${API_BASE}/documents/${doc.id}/file`} target="_blank" rel="noopener noreferrer"
-                        className="p-1.5 rounded hover:bg-indigo-50 text-slate-300 hover:text-indigo-600 transition-colors" title="View">
+                        className="p-1.5 rounded hover:bg-[#89E900]/10 text-neutral-400 hover:text-[#222222] transition-colors" title="View">
                         <Eye className="w-3.5 h-3.5" />
                       </a>
                       <a href={`${API_BASE}/documents/${doc.id}/file`} download={doc.fileName}
-                        className="p-1.5 rounded hover:bg-indigo-50 text-slate-300 hover:text-indigo-600 transition-colors" title="Download">
+                        className="p-1.5 rounded hover:bg-[#89E900]/10 text-neutral-400 hover:text-[#222222] transition-colors" title="Download">
                         <FileText className="w-3.5 h-3.5" />
                       </a>
                       {docPerms.canDelete && (
                         <button type="button" onClick={() => handleDeleteDocument(doc.id)}
-                          className="p-1.5 rounded hover:bg-red-50 text-slate-300 hover:text-red-500 transition-colors" title="Delete">
+                          className="p-1.5 rounded hover:bg-red-50 text-neutral-400 hover:text-red-500 transition-colors" title="Delete">
                           <Trash2 className="w-3.5 h-3.5" />
                         </button>
                       )}
@@ -634,21 +660,27 @@ export default function EmployeeEdit() {
         )}
 
                {/* ═══════════════ Education ═══════════════ */}
-        <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
+        <div className={`w-full flex items-center justify-between px-5 py-4 border-b border-neutral-100 text-left transition-all duration-200 ${
+          !showEducation ? "pl-5" : "border-l-4 border-l-[#222222] pl-4 bg-neutral-50/30"
+        }`}>
           <div className="flex items-center gap-3">
-            <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "#2e75b618" }}>
-              <GraduationCap className="w-4 h-4" style={{ color: "#2e75b6" }} />
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#222222] text-[#89E900] shadow-sm">
+              <GraduationCap className="w-4 h-4" />
             </span>
-            <h3 className="text-sm font-bold text-slate-700">Education</h3>
-            <span className="text-xs text-slate-400">({education.length})</span>
+            <h3 className={`text-xs font-bold uppercase tracking-wider transition-colors duration-200 ${
+              !showEducation ? "text-neutral-600" : "text-neutral-900 font-extrabold"
+            }`}>Education</h3>
+            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-[#89E900]/15 text-[#222222] border border-[#89E900]/30 text-[10px] font-bold">
+              {education.length}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <button type="button" onClick={addEducation}
-              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-              <Plus className="w-3.5 h-3.5" /> Add
+              className="flex items-center gap-1 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-neutral-600 bg-white border border-neutral-200 rounded-lg hover:bg-neutral-50 hover:text-neutral-900 transition-colors shadow-sm">
+              <Plus className="w-3 h-3 text-[#222222]" /> Add
             </button>
             <button type="button" onClick={() => setShowEducation(v => !v)}>
-              <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showEducation ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${showEducation ? "rotate-180" : ""}`} />
             </button>
           </div>
         </div>
@@ -686,17 +718,17 @@ export default function EmployeeEdit() {
                               toast.success("Education added");
                               fetchAll();
                             } catch (err) { toast.error(err?.response?.data?.message || "Failed"); }
-                          }} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">Save</button>
+                          }} className="text-xs font-bold uppercase tracking-wider text-neutral-800 hover:text-black border-b-2 border-transparent hover:border-[#89E900] transition-all">Save</button>
                         ) : (
                           <button type="button" onClick={() => handleSaveSubRecord("education", edu.id, {
                             level: edu.level, qualification: edu.qualification, institution: edu.institution,
                             majorOrField: edu.majorOrField, fromDate: edu.fromDate, toDate: edu.toDate, grade: edu.grade,
-                          })} className="text-xs font-medium text-blue-600 hover:text-blue-700">Update</button>
+                          })} className="text-xs font-bold uppercase tracking-wider text-neutral-800 hover:text-black border-b-2 border-transparent hover:border-[#89E900] transition-all">Update</button>
                         )}
                         <button type="button" onClick={() => {
                           if (isNew) setEducation(prev => prev.filter((_, i) => i !== idx));
                           else handleDeleteSubRecord("education", edu.id);
-                        }} className="text-xs text-red-500 hover:text-red-700">{isNew ? "Cancel" : "Remove"}</button>
+                        }} className="text-xs font-bold uppercase tracking-wider text-red-500 hover:text-red-700 transition-all ml-auto">{isNew ? "Cancel" : "Remove"}</button>
                       </div>
                     </div>
                   );
@@ -709,21 +741,27 @@ export default function EmployeeEdit() {
         )}
 
         {/* ═══════════════ Work Experience ═══════════════ */}
-        <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between">
+        <div className={`w-full flex items-center justify-between px-5 py-4 border-b border-neutral-100 text-left transition-all duration-200 ${
+          !showWorkExp ? "pl-5" : "border-l-4 border-l-[#222222] pl-4 bg-neutral-50/30"
+        }`}>
           <div className="flex items-center gap-3">
-            <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "#05966918" }}>
-              <Briefcase className="w-4 h-4" style={{ color: "#059669" }} />
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#222222] text-[#89E900] shadow-sm">
+              <Briefcase className="w-4 h-4" />
             </span>
-            <h3 className="text-sm font-bold text-slate-700">Work Experience</h3>
-            <span className="text-xs text-slate-400">({externalWork.length})</span>
+            <h3 className={`text-xs font-bold uppercase tracking-wider transition-colors duration-200 ${
+              !showWorkExp ? "text-neutral-600" : "text-neutral-900 font-extrabold"
+            }`}>Work Experience</h3>
+            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-[#89E900]/15 text-[#222222] border border-[#89E900]/30 text-[10px] font-bold">
+              {externalWork.length}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <button type="button" onClick={addExternalWork}
-              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors">
-              <Plus className="w-3.5 h-3.5" /> Add
+              className="flex items-center gap-1 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-neutral-600 bg-white border border-neutral-200 rounded-lg hover:bg-neutral-50 hover:text-neutral-900 transition-colors shadow-sm">
+              <Plus className="w-3 h-3 text-[#222222]" /> Add
             </button>
             <button type="button" onClick={() => setShowWorkExp(v => !v)}>
-              <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showWorkExp ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${showWorkExp ? "rotate-180" : ""}`} />
             </button>
           </div>
         </div>
@@ -761,18 +799,18 @@ export default function EmployeeEdit() {
                               toast.success("Work experience added");
                               fetchAll();
                             } catch (err) { toast.error(err?.response?.data?.message || "Failed"); }
-                          }} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">Save</button>
+                          }} className="text-xs font-bold uppercase tracking-wider text-neutral-800 hover:text-black border-b-2 border-transparent hover:border-[#89E900] transition-all">Save</button>
                         ) : (
                           <button type="button" onClick={() => handleSaveSubRecord("external-work", work.id, {
                             companyName: work.companyName, designation: work.designation,
                             employmentType: work.employmentType, fromDate: work.fromDate,
                             toDate: work.toDate, country: work.country, city: work.city, exitReason: work.exitReason,
-                          })} className="text-xs font-medium text-blue-600 hover:text-blue-700">Update</button>
+                          })} className="text-xs font-bold uppercase tracking-wider text-neutral-800 hover:text-black border-b-2 border-transparent hover:border-[#89E900] transition-all">Update</button>
                         )}
                         <button type="button" onClick={() => {
                           if (isNew) setExternalWork(prev => prev.filter((_, i) => i !== idx));
                           else handleDeleteSubRecord("external-work", work.id);
-                        }} className="text-xs text-red-500 hover:text-red-700">{isNew ? "Cancel" : "Remove"}</button>
+                        }} className="text-xs font-bold uppercase tracking-wider text-red-500 hover:text-red-700 transition-all ml-auto">{isNew ? "Cancel" : "Remove"}</button>
                       </div>
                     </div>
                   );
@@ -785,21 +823,27 @@ export default function EmployeeEdit() {
         )}
 
         {/* ═══════════════ Emergency Contacts ═══════════════ */}
-        <div className="px-5 py-3.5 flex items-center justify-between">
+        <div className={`w-full flex items-center justify-between px-5 py-4 border-b border-neutral-100 text-left transition-all duration-200 ${
+          !showEmergency ? "pl-5" : "border-l-4 border-l-[#222222] pl-4 bg-neutral-50/30"
+        }`}>
           <div className="flex items-center gap-3">
-            <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0" style={{ background: "#e9202018" }}>
-              <HeartPulse className="w-4 h-4" style={{ color: "#e92020" }} />
+            <span className="w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#222222] text-[#89E900] shadow-sm">
+              <HeartPulse className="w-4 h-4" />
             </span>
-            <h3 className="text-sm font-bold text-slate-700">Emergency Contacts</h3>
-            <span className="text-xs text-slate-400">({emergencyContacts.length})</span>
+            <h3 className={`text-xs font-bold uppercase tracking-wider transition-colors duration-200 ${
+              !showEmergency ? "text-neutral-600" : "text-neutral-900 font-extrabold"
+            }`}>Emergency Contacts</h3>
+            <span className="inline-flex items-center justify-center px-2 py-0.5 rounded-full bg-[#89E900]/15 text-[#222222] border border-[#89E900]/30 text-[10px] font-bold">
+              {emergencyContacts.length}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <button type="button" onClick={addEmergencyContact}
-              className="flex items-center gap-1 px-2.5 py-1.5 text-xs font-medium text-rose-600 hover:bg-rose-50 rounded-lg transition-colors">
-              <Plus className="w-3.5 h-3.5" /> Add
+              className="flex items-center gap-1 px-2.5 py-1.5 text-[10px] font-bold uppercase tracking-wider text-neutral-600 bg-white border border-neutral-200 rounded-lg hover:bg-neutral-50 hover:text-neutral-900 transition-colors shadow-sm">
+              <Plus className="w-3 h-3 text-[#222222]" /> Add
             </button>
             <button type="button" onClick={() => setShowEmergency(v => !v)}>
-              <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform ${showEmergency ? "rotate-180" : ""}`} />
+              <ChevronDown className={`w-4 h-4 text-neutral-400 transition-transform ${showEmergency ? "rotate-180" : ""}`} />
             </button>
           </div>
         </div>
@@ -834,17 +878,17 @@ export default function EmployeeEdit() {
                               toast.success("Contact added");
                               fetchAll();
                             } catch (err) { toast.error(err?.response?.data?.message || "Failed"); }
-                          }} className="text-xs font-medium text-emerald-600 hover:text-emerald-700">Save</button>
+                          }} className="text-xs font-bold uppercase tracking-wider text-neutral-800 hover:text-black border-b-2 border-transparent hover:border-[#89E900] transition-all">Save</button>
                         ) : (
                           <button type="button" onClick={() => handleSaveSubRecord("emergency-contacts", contact.id, {
                             fullName: contact.fullName, relationship: contact.relationship,
                             phone: contact.phone, alternatePhone: contact.alternatePhone, email: contact.email,
-                          })} className="text-xs font-medium text-blue-600 hover:text-blue-700">Update</button>
+                          })} className="text-xs font-bold uppercase tracking-wider text-neutral-800 hover:text-black border-b-2 border-transparent hover:border-[#89E900] transition-all">Update</button>
                         )}
                         <button type="button" onClick={() => {
                           if (isNew) setEmergencyContacts(prev => prev.filter((_, i) => i !== idx));
                           else handleDeleteSubRecord("emergency-contacts", contact.id);
-                        }} className="text-xs text-red-500 hover:text-red-700">{isNew ? "Cancel" : "Remove"}</button>
+                        }} className="text-xs font-bold uppercase tracking-wider text-red-500 hover:text-red-700 transition-all ml-auto">{isNew ? "Cancel" : "Remove"}</button>
                       </div>
                     </div>
                   );
